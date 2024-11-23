@@ -1,10 +1,14 @@
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./assets/components/Layout";
 
 function App() {
   return (
-    <>
-      <h1>Very awesome project here</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

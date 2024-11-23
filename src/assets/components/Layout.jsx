@@ -7,9 +7,9 @@ import Footer from "./Footer";
 
 function Layout() {
   return (
-    <div className="site-wrapper">
+    <div className="flex flex-col bg-green-500">
       <Header />
-      <main>
+      <main className="m-5">
         <Outlet />
       </main>
       <ProgressBar />

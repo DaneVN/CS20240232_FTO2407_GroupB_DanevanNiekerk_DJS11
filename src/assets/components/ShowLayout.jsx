@@ -2,16 +2,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-function Layout() {
+function ShowLayout() {
   return (
-    <div id="season-wrapper">
-      <div>
-        <h3>Favourites</h3>
-        {/* //dropdown with sorting options */}
-      </div>
+    <div className="">
       <Outlet />
     </div>
   );
 }
 
-export default Layout;
+export default ShowLayout;

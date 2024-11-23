@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 function Layout() {
   return (
-    <div className="flex flex-col bg-green-500">
+    <div className="flex flex-col">
       <Header />
       <main className="m-5">
         <Outlet />

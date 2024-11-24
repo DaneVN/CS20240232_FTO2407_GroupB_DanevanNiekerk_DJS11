@@ -11,13 +11,17 @@ export default function Home() {
       <h2>You were listening to:</h2>
       <LastListened />
       <br />
-      <div id="home-podcast-list" className="bg-lime-950 p-3 relative">
+      <div id="home-podcast-list" className="bg-lime-950 p-3 relative ">
+        {/* //have the different cards path to the corresponding show using urlParams */}
         <Link to="show">
           <PreviewCard />
         </Link>
-        {/* //have the different cards path to the corresponding show using urlParams */}
-        <PreviewCard />
-        <PreviewCard />
+        <Link to="show">
+          <PreviewCard />
+        </Link>
+        <Link to="show">
+          <PreviewCard />
+        </Link>
         <button className="absolute top-1/2 right-0 hover:animate-bounce">
           {/* //add a react spring animation instead of hover? */}
           <img src={loadMore} alt="arrow to the right" className="w-14" />

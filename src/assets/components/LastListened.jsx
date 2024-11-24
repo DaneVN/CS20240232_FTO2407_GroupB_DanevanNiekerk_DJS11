@@ -11,7 +11,7 @@ function LastListened() {
   }
 
   return (
-    <div className="bg-green-500 rounded-lg p-4 grid grid-cols-3 gap-4">
+    <div className="bg-green-500 rounded-lg p-4 flex flex-col gap-4 sm:grid sm:grid-cols-3 sm:gap-4 mb-2">
       <div className="relative">
         <button className="w-6 absolute top-1 left-1" onClick={toggleStar}>
           <img src={starFull} alt="favourite" />
@@ -23,14 +23,17 @@ function LastListened() {
           alt="show banner/cover"
         />
       </div>
-      <div className="col-span-2">
+      <div className="flex flex-col sm:col-span-2">
         <h3>Title</h3>
         <div className="flex justify-between gap-2 flex-wrap">
           <div className="flex justify-between gap-2">
             <p>00:00</p>
             <p>S1 Ep4</p>
           </div>
-          <p>Decription Decription Decription Decription</p>
+          <p>
+            Decription Decription Decription Decription Decription Decription
+            Decription Decription
+          </p>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../components/ProgressBar";
 import Footer from "./Footer";
 
 function Layout() {

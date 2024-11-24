@@ -8,7 +8,7 @@ import NextAudio from "../images/right.png";
 function ProgressBar() {
   // const [currentTrack, setCurrentTrack] = React.useState()
   return (
-    <section className="fixed bottom-0 flex justify-between w-full text-center pr-8">
+    <section className="fixed bottom-0 flex justify-between w-full text-center pr-8 bg-slate-700">
       <p>title</p>
       <div id="controls" className="flex justify-center">
         <button>

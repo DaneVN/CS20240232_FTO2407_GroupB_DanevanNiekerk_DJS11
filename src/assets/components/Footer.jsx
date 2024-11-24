@@ -2,6 +2,6 @@
 import React from "react";
 
 function Footer() {
-  return <h1>Footer HERE</h1>;
+  return <h1 className="mb-8">Footer HERE</h1>;
 }
 export default Footer;

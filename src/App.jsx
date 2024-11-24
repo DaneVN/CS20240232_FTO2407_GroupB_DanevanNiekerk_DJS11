@@ -5,7 +5,7 @@ import ShowLayout from "./assets/components/ShowLayout";
 import Home from "./assets/pages/Home";
 import Show from "./assets/pages/Show";
 import Season from "./assets/pages/Season";
-import Favourites from "./assets/pages/Favourites.jsx";
+import Favourites from "./assets/pages/Favourites";
 
 function App() {
   return (

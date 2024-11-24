@@ -1,20 +1,33 @@
-//eslint-disable-next-line
-import React from "react";
+// import React from "react";
 import placeholder from "../images/placeholder-show-banner.jpg";
-import star from "../images/star-full.png";
+import starFull from "../images/star-full.png";
+// import starEmpty from "../images/star-empty.png";
 
 function LastListened() {
+  // const [favourite, setFavourite] = React.useState(true); //get favourite from local storage
+
+  function toggleStar() {
+    // setFavourite(!favourite);
+  }
+
   return (
     <div className="bg-green-500 rounded-lg p-4 grid grid-cols-3 gap-4">
-      <img className="self-center" src={placeholder} alt="show banner/cover" />
+      <div className="relative">
+        <button className="w-6 absolute top-1 left-1" onClick={toggleStar}>
+          <img src={starFull} alt="favourite" />
+        </button>
+
+        <img
+          className="self-center"
+          src={placeholder}
+          alt="show banner/cover"
+        />
+      </div>
       <div className="col-span-2">
         <h3>Title</h3>
         <div className="flex justify-between gap-2 flex-wrap">
-          <div>
-            <div className="flex justify-between gap">
-              <img className="w-6" src={star} alt="favourite" />
-              <p>00:00</p>
-            </div>
+          <div className="flex justify-between gap-2">
+            <p>00:00</p>
             <p>S1 Ep4</p>
           </div>
           <p>Decription Decription Decription Decription</p>

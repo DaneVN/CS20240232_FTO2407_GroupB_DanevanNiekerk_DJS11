@@ -9,13 +9,16 @@ import Favourites from "./assets/pages/Favourites";
 
 function App() {
   return (
+    // add parameters for show and season.
+    // add modal for genres
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="show" element={<ShowLayout />}>
-            <Route index element={<Show />}></Route>
-            <Route path="season" element={<Season />} />
+          <Route path="show" element={<Show />} />
+          <Route path="season" element={<ShowLayout />}>
+            <Route index element={<Season />} />
+            {/* //render amount of seasons pages based on data */}
           </Route>
           <Route path="favourites" element={<Favourites />} />
         </Route>

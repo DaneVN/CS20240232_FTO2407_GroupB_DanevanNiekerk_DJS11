@@ -1,7 +1,7 @@
 //eslint-disable-next-line
 import React from "react";
-import PropTypes from "prop-types";
 
+//eslint-disable-next-line
 function PreviewCard({ description, genres, image, seasons, title, updated }) {
   return (
     <div className="bg-lime-900 rounded-lg p-4 flex flex-col gap-4 sm:grid sm:grid-cols-3 sm:gap-4 mb-6">
@@ -38,26 +38,5 @@ function PreviewCard({ description, genres, image, seasons, title, updated }) {
     </div>
   );
 }
-
-//Fixing ESlint bug on props destructuring: 'description/genre/etc' is missing in props validation
-// Define prop types for validation
-PreviewCard.propTypes = {
-  description: PropTypes.string,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  image: PropTypes.string,
-  seasons: PropTypes.number,
-  title: PropTypes.string,
-  updated: PropTypes.string,
-};
-
-// Set default props to avoid undefined errors
-PreviewCard.defaultProps = {
-  description: "No description available.",
-  genres: [],
-  image: "",
-  seasons: 0,
-  title: "Untitled",
-  updated: "Unknown date",
-};
 
 export default PreviewCard;

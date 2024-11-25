@@ -1,12 +1,12 @@
 //eslint-disable-next-line
 import React from "react";
+import EpisodeCard from "../components/EpisodeCard";
 
 function Season() {
   return (
-    <>
-      <div id="show-details">Details HERE</div>
-      <div id="episode-list">Episode List HERE</div>
-    </>
+    <section id="episode-list" className="bg-lime-950 p-3 mt-10">
+      <EpisodeCard />
+    </section>
   );
 }
 export default Season;

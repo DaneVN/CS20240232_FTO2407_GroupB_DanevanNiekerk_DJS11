@@ -1,8 +1,8 @@
 //eslint-disable-next-line
 import React from "react";
 import placeholder from "../images/placeholder-show-banner.jpg";
-// import starFull from "../images/star-full.png";
-import starEmpty from "../images/star-empty.png";
+import starFull from "../images/star-full.png";
+// import starEmpty from "../images/star-empty.png";
 
 function FavouritesCard() {
   return (
@@ -10,7 +10,7 @@ function FavouritesCard() {
       <div className="relative mb-4">
         <img
           className="w-6 absolute top-1 left-1"
-          src={starEmpty}
+          src={starFull}
           alt="favourite"
         />
         <img
@@ -23,8 +23,7 @@ function FavouritesCard() {
         <h2 className="mb-4">Series: Episode Title</h2>
         <p className="mb-2">
           Description Description Description Description Description
-          Description Description Description{" "}
-          {/* //prettier added {" "}, for some reason? */}
+          Description Description Description
         </p>
         <div className="flex gap-2 justify-center flex-wrap mb-2">
           <p>S Ep</p>

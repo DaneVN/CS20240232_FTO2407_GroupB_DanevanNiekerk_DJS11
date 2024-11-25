@@ -1,18 +1,11 @@
 //eslint-disable-next-line
 import React from "react";
 import placeholder from "../images/placeholder-show-banner.jpg";
-// import starFull from "../images/star-full.png";
-import starEmpty from "../images/star-empty.png";
 
 function PreviewCard() {
   return (
     <div className="bg-lime-900 rounded-lg p-4 flex flex-col gap-4 sm:grid sm:grid-cols-3 sm:gap-4 mb-6">
-      <div className="relative mb-4">
-        <img
-          className="w-6 absolute top-1 left-1"
-          src={starEmpty}
-          alt="favourite"
-        />
+      <div className=" mb-4">
         <img
           className="self-center rounded-lg"
           src={placeholder}

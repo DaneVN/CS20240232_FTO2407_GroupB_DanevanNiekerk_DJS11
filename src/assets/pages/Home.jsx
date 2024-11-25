@@ -13,13 +13,13 @@ export default function Home() {
       <br />
       <div id="home-podcast-list" className="bg-lime-950 p-3 relative ">
         {/* //have the different cards path to the corresponding show using urlParams */}
-        <Link to="show">
+        <Link to="show/1">
           <PreviewCard />
         </Link>
-        <Link to="show">
+        <Link to="show/2">
           <PreviewCard />
         </Link>
-        <Link to="show">
+        <Link to="show/3">
           <PreviewCard />
         </Link>
         <button className="absolute top-1/2 right-0 hover:animate-bounce">

@@ -2,9 +2,12 @@
 import React from "react";
 import backBtn from "../images/load-more.png";
 import starEmpty from "../images/star-empty.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function Home() {
+  // Example season data (could come from API or state)
+  const seasons = [1, 2, 3, 4];
+
   return (
     <>
       <section className=" bg-green-300 p-5">
@@ -18,19 +21,19 @@ export default function Home() {
           </button>
           <div id="details" className="flex flex-col gap-3 mb-3">
             <h2>Title</h2>
-            <div className="flex gap-5 flex-wrap">
-              {/* //load season pages based on amount of seasons in show */}
-              {/* //add active style */}
-              <NavLink to="" className="">
-                Season 1
-              </NavLink>
-              <NavLink to="show.1" className="">
-                Season 2
-              </NavLink>
-              <NavLink to="show.2" className="">
-                Season 3
-              </NavLink>
-            </div>
+            <nav className="flex gap-5 flex-wrap">
+              {seasons.map((season) => (
+                <NavLink
+                  key={season}
+                  to={`season/${season}`}
+                  className={({ isActive }) =>
+                    isActive ? "text-lime-900" : ""
+                  }
+                >
+                  Season {season}
+                </NavLink>
+              ))}
+            </nav>
             <p>
               Description Description Description Description Description
               Description Description Description Description Description
@@ -82,6 +85,7 @@ export default function Home() {
           </ul>
         </div>
       </section>
+      <Outlet />
     </>
   );
 }

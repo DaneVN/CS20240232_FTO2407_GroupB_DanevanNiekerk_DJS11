@@ -7,7 +7,6 @@ import loadMore from "../images/load-more.png";
 function Home() {
   // State to hold podcasts
   const [podcasts, setPodcasts] = React.useState([]);
-
   React.useEffect(() => {
     // Fetch podcasts and sort them alphabetically by title
     fetch("https://podcast-api.netlify.app")
@@ -28,24 +27,28 @@ function Home() {
       <br />
       <div id="home-podcast-list" className="bg-lime-950 p-3 relative">
         {/* Render sorted podcasts */}
-        {podcasts.map((show) => {
-          return (
-            <Link
-              to={`show/${show.id}`}
-              key={show.id}
-              onClick={() => console.log(`Navigating to show/${show.id}`)}
-            >
-              <PreviewCard
-                description={show.description}
-                genres={show.genres}
-                image={show.image}
-                seasons={show.seasons}
-                title={show.title}
-                updated={show.updated}
-              />
-            </Link>
-          );
-        })}
+        {console.log("1")}
+        {podcasts.map(
+          // ({ id, title, description, seasons, image, genres, updated }) => {
+          (show) => {
+            return (
+              <Link
+                to={`show/${show.id}`}
+                key={show.id}
+                onClick={() => console.log(`Navigating to show/${show.id}`)}
+              >
+                <PreviewCard
+                  description={show.description}
+                  genres={show.genres || []}
+                  image={show.image}
+                  seasons={show.seasons}
+                  title={show.title}
+                  updated={show.updated}
+                />
+              </Link>
+            );
+          }
+        )}
 
         <button className="absolute top-1/2 right-0 hover:animate-bounce">
           {/* Add a react-spring animation here later */}

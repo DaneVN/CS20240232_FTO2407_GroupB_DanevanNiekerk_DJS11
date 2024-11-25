@@ -14,12 +14,10 @@ function App() {
         {/* Shared layout with persistent header, footer, and progress bar */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="show" element={<Navigate to="/show/5968" replace />} />
           <Route path="show/:showId" element={<Show />}>
-            {/* <Route
-              index
-              element={<Navigate to="season/1" replace />} // Redirect to the first season
-            />
-            <Route path="season/:seasonId" element={<Season />} /> */}
+            <Route index element={<Navigate to="season/1" replace />} />
+            <Route path="season/:seasonId" element={<Season />} />
           </Route>
           <Route path="favourites" element={<Favourites />} />
           Catch-all route for 404

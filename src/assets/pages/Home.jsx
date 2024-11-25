@@ -30,7 +30,11 @@ function Home() {
         {/* Render sorted podcasts */}
         {podcasts.map((show) => {
           return (
-            <Link to={`show/${show.id}`} key={show.id}>
+            <Link
+              to={`show/${show.id}`}
+              key={show.id}
+              onClick={() => console.log(`Navigating to show/${show.id}`)}
+            >
               <PreviewCard
                 description={show.description}
                 genres={show.genres}

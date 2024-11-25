@@ -21,17 +21,18 @@ function PreviewCard({ description, genres, image, seasons, title, updated }) {
         </div>
         <div id="genre-list">
           <ul className="list-none flex gap-2 justify-center flex-wrap">
-            {genres.map((genre) => {
-              return (
-                <li
-                  id="genre"
-                  key={genre}
-                  className="bg-slate-800 rounded-3xl px-3 py-1"
-                >
-                  Genre
-                </li>
-              );
-            })}
+            {Array.isArray(genres) &&
+              genres.map((genre) => {
+                return (
+                  <li
+                    id="genre"
+                    key={genre}
+                    className="bg-slate-800 rounded-3xl px-3 py-1"
+                  >
+                    Genre
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>

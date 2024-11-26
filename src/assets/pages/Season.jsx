@@ -27,19 +27,27 @@ function Season() {
   // dependencies = url changes = re-render on page(show/season) change
 
   return (
-    <section id="episode-list" className="bg-lime-950 p-3 mt-10">
-      {season.episodes.map((episode) => {
-        return (
-          <EpisodeCard
-            key={episode.episode}
-            episode={episode.episode}
-            title={episode.title}
-            description={episode.description}
-            file={episode.file}
-          />
-        );
-      })}
-    </section>
+    <>
+      <div className="relative">
+        <h3 className="absolute top-0 left-[47%] bg-green-500 px-2 my-4 rounded-lg">
+          Season {seasonId}
+        </h3>
+        <img src={season.image} alt="Season cover" className="w-full" />
+      </div>
+      <section id="episode-list" className="bg-lime-950 p-3 mt-10">
+        {season.episodes.map((episode) => {
+          return (
+            <EpisodeCard
+              key={episode.episode}
+              episode={episode.episode}
+              title={episode.title}
+              description={episode.description}
+              file={episode.file}
+            />
+          );
+        })}
+      </section>
+    </>
   );
 }
 export default Season;

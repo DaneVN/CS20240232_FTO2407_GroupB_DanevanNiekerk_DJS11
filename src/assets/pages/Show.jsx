@@ -55,30 +55,27 @@ export default function Home() {
                 );
               })}
             </nav>
-            <p className="h-24 truncate whitespace-normal text-ellipsis">
-              {show.description || "No description available."}
-            </p>
           </div>
           <button className="shrink-0 w-8">
             <img src={starEmpty} alt="favourite" className="w-12" />
           </button>
         </div>
-        <div id="genre-list">
+        {/* <div id="genre-list">
           <ul className="list-none flex gap-2 justify-start flex-nowrap overflow-x-scroll scrollbar">
             {
               // usecontext to get genres array from parent route??
-              // genres.map((genre, index) => (
-              //   <li
-              //     id="genre"
-              //     key={index}
-              //     className="bg-slate-800 rounded-3xl px-3 py-1"
-              //   >
-              //     {genre}
-              //   </li>
-              // ))
+              genres.map((genre, index) => (
+                <li
+                  id="genre"
+                  key={index}
+                  className="bg-slate-800 rounded-3xl px-3 py-1"
+                >
+                  {genre}
+                </li>
+              ))
             }
           </ul>
-        </div>
+        </div> */}
       </section>
       <Outlet />
     </>

@@ -1,6 +1,6 @@
 //eslint-disable-next-line
 import React from "react";
-import SortImg from "../images/sort.png";
+import SortImg from "../../../public/assets/images/sort.png";
 import FavouritesCard from "../components/FavouritesCard";
 
 function Favourites() {

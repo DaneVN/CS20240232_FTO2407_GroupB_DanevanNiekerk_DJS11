@@ -1,8 +1,8 @@
 //eslint-disable-next-line
 import React from "react";
 import { Link } from "react-router-dom";
-import pocastImg from "../images/podcast.png";
-import star from "../images/star-full.png";
+import pocastImg from "../../../public/assets/images/podcast.png";
+import star from "../../../public/assets/images/star-full.png";
 
 function Header() {
   return (

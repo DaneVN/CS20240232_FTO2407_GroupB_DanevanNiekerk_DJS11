@@ -1,8 +1,8 @@
 //eslint-disable-next-line
 import React from "react";
-// import starFull from "../images/star-full.png";
-import starEmpty from "../images/star-empty.png";
-import playBtn from "../images/play-button.png";
+// import starFull from "../../../public/assets/images/star-full.png";
+import starEmpty from "../../../public/assets/images/star-empty.png";
+import playBtn from "../../../public/assets/images/play-button.png";
 import PropTypes from "prop-types";
 
 function EpisodeCard({ episode, title, description, file }) {

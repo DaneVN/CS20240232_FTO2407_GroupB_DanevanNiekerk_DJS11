@@ -1,8 +1,8 @@
 //eslint-disable-next-line
 import React from "react";
-import placeholder from "../images/placeholder-show-banner.jpg";
-import starFull from "../images/star-full.png";
-// import starEmpty from "../images/star-empty.png";
+import placeholder from "../../../public/assets/images/placeholder-show-banner.jpg";
+import starFull from "../../../public/assets/images/star-full.png";
+// import starEmpty from "../../../public/assets/images/star-empty.png";
 
 function FavouritesCard() {
   return (
@@ -46,5 +46,6 @@ function FavouritesCard() {
     </div>
   );
 }
-
+//when sorting from last updated use Date.parse("String here") ;
+//It returns the number of milliseconds since the string entered
 export default FavouritesCard;

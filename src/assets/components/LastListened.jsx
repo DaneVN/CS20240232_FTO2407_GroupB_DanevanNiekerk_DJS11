@@ -1,6 +1,6 @@
 // import React from "react";
-import placeholder from "../images/placeholder-show-banner.jpg";
-import starFull from "../images/star-full.png";
+import placeholder from "../../../public/assets/images/placeholder-show-banner.jpg";
+import starFull from "../../../public/assets/images/star-full.png";
 // import starEmpty from "../images/star-empty.png";
 
 function LastListened() {

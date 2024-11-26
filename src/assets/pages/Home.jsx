@@ -1,7 +1,7 @@
 import React from "react";
 import LastListened from "../components/LastListened";
 import PreviewCard from "../components/PreviewCard";
-import loadMore from "../images/load-more.png";
+import loadMore from "../../../public/assets/images/load-more.png";
 
 function Home() {
   // State to hold podcasts

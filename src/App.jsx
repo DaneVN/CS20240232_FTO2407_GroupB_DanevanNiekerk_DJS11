@@ -14,6 +14,7 @@ function App() {
         {/* Shared layout with persistent header, footer, and progress bar */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          {/* //Make default of show be last track listened to */}
           <Route path="show" element={<Navigate to="/show/5968" replace />} />
           <Route path="show/:showId" element={<Show />}>
             <Route index element={<Navigate to="season/1" replace />} />

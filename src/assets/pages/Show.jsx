@@ -37,7 +37,9 @@ export default function Home() {
             <img src={backBtn} alt="Go back" className="rotate-180" />
           </button>
           <div id="details" className="flex flex-col gap-3 mb-3">
-            <h2>{show.title || "Loading..."}</h2>
+            <h2>
+              {show.title || "Loading..."} ({show.updated.slice(0, 10) || null})
+            </h2>
             <nav className="flex gap-5 flex-wrap">
               {show.seasons?.map((season) => {
                 return (
@@ -48,12 +50,14 @@ export default function Home() {
                       isActive ? "text-lime-900" : ""
                     }
                   >
-                    Season {season.season}
+                    Season {season.season} ( {season.episodes.length} Episodes )
                   </NavLink>
                 );
               })}
             </nav>
-            <p>{show.description || "No description available."}</p>
+            <p className="h-24 truncate whitespace-normal text-ellipsis">
+              {show.description || "No description available."}
+            </p>
           </div>
           <button className="shrink-0 w-8">
             <img src={starEmpty} alt="favourite" className="w-12" />
@@ -77,7 +81,6 @@ export default function Home() {
         </div>
       </section>
       <Outlet />
-      {/* //how do i send the episode list over to season page? useContext? Props? */}
     </>
   );
 }

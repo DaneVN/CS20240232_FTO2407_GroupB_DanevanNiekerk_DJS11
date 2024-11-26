@@ -25,25 +25,25 @@ function Home() {
       <h2>You were listening to:</h2>
       <LastListened />
       <br />
-      <div id="home-podcast-list" className="bg-lime-950 p-3 relative">
+      <div
+        id="home-podcast-list"
+        className="bg-lime-950 p-3 relative sm:grid sm:grid-cols-2 sm:gap-3"
+      >
         {/* Render sorted podcasts */}
-        {podcasts.map(
-          // ({ id, title, description, seasons, image, genres, updated }) => {
-          (show) => {
-            return (
-              <Link to={`show/${show.id}`} key={show.id}>
-                <PreviewCard
-                  description={show.description}
-                  genres={show.genres || []}
-                  image={show.image}
-                  seasons={show.seasons}
-                  title={show.title}
-                  updated={show.updated}
-                />
-              </Link>
-            );
-          }
-        )}
+        {podcasts.map((show) => {
+          return (
+            <Link to={`show/${show.id}`} key={show.id}>
+              <PreviewCard
+                description={show.description}
+                genres={show.genres}
+                image={show.image}
+                seasons={show.seasons}
+                title={show.title}
+                updated={show.updated}
+              />
+            </Link>
+          );
+        })}
 
         <button className="absolute top-1/2 right-0 hover:animate-bounce">
           {/* Add a react-spring animation here later */}

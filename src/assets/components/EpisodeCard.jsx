@@ -23,7 +23,6 @@ function EpisodeCard({ episode, title, description, file }) {
           <p className="mb-2">{description}</p>
           <div className="flex gap-2 justify-start flex-wrap mb-2">
             <p>00:00</p>
-            <p>LastUpdated</p>
           </div>
         </div>
       </div>

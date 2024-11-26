@@ -1,7 +1,6 @@
 import React from "react";
 import LastListened from "../components/LastListened";
 import PreviewCard from "../components/PreviewCard";
-import { Link } from "react-router-dom";
 import loadMore from "../images/load-more.png";
 
 function Home() {
@@ -27,21 +26,21 @@ function Home() {
       <br />
       <div
         id="home-podcast-list"
-        className="bg-lime-950 p-3 relative sm:grid sm:grid-cols-2 sm:gap-3"
+        className="bg-lime-950 p-3 relative sm:grid sm:grid-cols-2 sm:gap-3 md:grid-cols-3"
       >
         {/* Render sorted podcasts */}
         {podcasts.map((show) => {
           return (
-            <Link to={`show/${show.id}`} key={show.id}>
-              <PreviewCard
-                description={show.description}
-                genres={show.genres}
-                image={show.image}
-                seasons={show.seasons}
-                title={show.title}
-                updated={show.updated}
-              />
-            </Link>
+            <PreviewCard
+              key={show.id}
+              showId={show.id}
+              description={show.description}
+              genres={show.genres}
+              image={show.image}
+              seasons={show.seasons}
+              title={show.title}
+              updated={show.updated}
+            />
           );
         })}
 

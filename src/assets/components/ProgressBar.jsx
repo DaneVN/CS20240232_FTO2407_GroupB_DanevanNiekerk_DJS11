@@ -9,7 +9,6 @@ import starEmpty from "../images/star-empty.png";
 function ProgressBar() {
   // const [currentTrack, setCurrentTrack] = React.useState()
   return (
-    /* <section className="fixed bottom-0 flex justify-between items-center w-full h-16 text-center px-8 bg-slate-700"> */
     <section className="fixed bottom-0 px-8 bg-slate-700 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">
       <div className="items-center max-w-[90%] overflow-hidden sm:flex sm:gap-3">
         <p className="truncate whitespace-nowrap text-ellipsis">

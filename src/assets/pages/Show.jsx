@@ -16,7 +16,7 @@ export default function Home() {
   React.useEffect(() => {
     if (!showId) return; // Do nothing if showId is undefined
 
-    // Fetch podcasts and sort them alphabetically by title
+    // Fetch show and assign it to state
     fetch(`https://podcast-api.netlify.app/id/${showId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -43,12 +43,11 @@ export default function Home() {
                 return (
                   <NavLink
                     key={season.season}
-                    to={`season/${season}`}
+                    to={`season/${season.season}`}
                     className={({ isActive }) =>
                       isActive ? "text-lime-900" : ""
                     }
                   >
-                    {/* //thisV single line of code has caused me SO MUCH grief today D:< */}
                     Season {season.season}
                   </NavLink>
                 );
@@ -78,6 +77,7 @@ export default function Home() {
         </div>
       </section>
       <Outlet />
+      {/* //how do i send the episode list over to season page? useContext? Props? */}
     </>
   );
 }

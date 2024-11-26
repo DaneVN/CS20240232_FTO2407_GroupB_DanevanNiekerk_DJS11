@@ -9,7 +9,6 @@ function PreviewCard({
   title,
   updated,
 }) {
-  console.log("1");
   return (
     <>
       <div className="bg-lime-900 rounded-lg p-4 flex flex-col gap-4 sm:grid sm:grid-cols-3 sm:gap-4 mb-6">

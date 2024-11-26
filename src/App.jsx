@@ -20,7 +20,7 @@ function App() {
             <Route path="season/:seasonId" element={<Season />} />
           </Route>
           <Route path="favourites" element={<Favourites />} />
-          Catch-all route for 404
+          {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

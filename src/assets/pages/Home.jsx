@@ -27,16 +27,11 @@ function Home() {
       <br />
       <div id="home-podcast-list" className="bg-lime-950 p-3 relative">
         {/* Render sorted podcasts */}
-        {console.log("1")}
         {podcasts.map(
           // ({ id, title, description, seasons, image, genres, updated }) => {
           (show) => {
             return (
-              <Link
-                to={`show/${show.id}`}
-                key={show.id}
-                onClick={() => console.log(`Navigating to show/${show.id}`)}
-              >
+              <Link to={`show/${show.id}`} key={show.id}>
                 <PreviewCard
                   description={show.description}
                   genres={show.genres || []}

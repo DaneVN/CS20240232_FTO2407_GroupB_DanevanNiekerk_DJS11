@@ -3,6 +3,7 @@ import React from "react";
 // import starFull from "../images/star-full.png";
 import starEmpty from "../images/star-empty.png";
 import playBtn from "../images/play-button.png";
+import PropTypes from "prop-types";
 
 function EpisodeCard({ episode, title, description, file }) {
   return (
@@ -29,5 +30,14 @@ function EpisodeCard({ episode, title, description, file }) {
     </>
   );
 }
+
+//Fixing ESlint bug on props destructuring: 'description/genre/etc' is missing in props validation
+// Define prop types for validation
+EpisodeCard.propTypes = {
+  description: PropTypes.string,
+  episode: PropTypes.number,
+  title: PropTypes.string,
+  file: PropTypes.string,
+};
 
 export default EpisodeCard;

@@ -1,5 +1,5 @@
 import React from "react";
-import backBtn from "../images/load-more.png";
+import backBtn from "../../../public/assets/images/load-more.png";
 import starEmpty from "../../../public/assets/images/star-empty.png";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 

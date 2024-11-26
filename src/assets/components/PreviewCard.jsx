@@ -15,6 +15,25 @@ function PreviewCard({
   const [isOverflowing, setIsOverflowing] = React.useState(false); // Check if text overflows
   const descriptionRef = React.useRef(null); // Reference to the description element
 
+  const genresStrings = [
+    [1, "Personal Growth"],
+    [2, "Investigative Journalism"],
+    [3, "History"],
+    [4, "Comedy"],
+    [5, "Entertainment"],
+    [6, "Business"],
+    [7, "Fiction"],
+    [8, "News"],
+    [9, "Kids and Family"],
+  ];
+
+  const dateString = new Date(updated.slice(0, 10));
+  const updatedParsed = dateString.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
   // Check for overflow after the component renders
   React.useEffect(() => {
     if (descriptionRef.current) {
@@ -59,21 +78,21 @@ function PreviewCard({
             </button>
           )}
         </div>
-        <div className="flex gap-4 justify-center flex-wrap mb-2">
+        <div className="flex gap-2 justify-center flex-wrap mb-2">
           <p>{seasons ? `${seasons} Seasons` : "No seasons available"}</p>
           <p>|</p>
-          <p>Updated: {updated.slice(0, 10)}</p>
+          <p>Updated: {updatedParsed}</p>
         </div>
         <div id="genre-list">
           <ul className="list-none flex gap-2 justify-center flex-wrap">
             {Array.isArray(genres) &&
-              genres.map((genre) => (
+              genres.map((genreNum) => (
                 <li
                   id="genre"
-                  key={genre}
+                  key={genreNum}
                   className="bg-slate-800 rounded-3xl px-3 py-1"
                 >
-                  {genre}
+                  {genresStrings[genreNum - 1][1]}
                 </li>
               ))}
           </ul>

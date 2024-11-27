@@ -2,6 +2,7 @@ import React from "react";
 import starFull from "../../../public/assets/images/star-full.png";
 import starEmpty from "../../../public/assets/images/star-empty.png";
 import { favourites } from "../utils/localStorage";
+import PropTypes from "prop-types";
 
 function FavouritesCard({
   episode,
@@ -9,7 +10,6 @@ function FavouritesCard({
   description,
   file,
   dateAdded,
-  image,
   seasonTitle,
   showTitle,
 }) {
@@ -53,7 +53,16 @@ function FavouritesCard({
     </>
   );
 }
+// Define prop types for validation
+FavouritesCard.propTypes = {
+  episode: PropTypes.number,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  file: PropTypes.string,
+  dateAdded: PropTypes.string,
+  image: PropTypes.string,
+  seasonTitle: PropTypes.string,
+  showTitle: PropTypes.string,
+};
 
-//when sorting from last updated use Date.parse("String here") ;
-//It returns the number of milliseconds since the string entered
 export default FavouritesCard;

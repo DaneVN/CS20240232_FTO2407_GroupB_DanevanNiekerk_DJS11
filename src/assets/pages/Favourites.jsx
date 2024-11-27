@@ -1,13 +1,11 @@
 import React from "react";
-import SortImg from "../../../public/assets/images/sort.png";
-import placeholderImage from "../../../public/assets/images/sort.png";
 import FavouritesCard from "../components/FavouritesCard";
 import { favourites } from "../utils/localStorage";
 
 function Favourites() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [favouriteEpisodes, setFavouriteEpisodes] = React.useState([]);
-  const [sortOption, setSortOption] = React.useState("default"); // Placeholder for sorting options
+  const [sortOption, setSortOption] = React.useState("A-Z");
 
   React.useEffect(() => {
     const episodesList = favourites.episodes; // Array of episode UIDs
@@ -63,7 +61,7 @@ function Favourites() {
         }
 
         // Apply sorting logic here
-        const sortedEpisodes = allEpisodes; // Replace with custom sorting logic if needed
+        const sortedEpisodes = handleSortChange(allEpisodes, sortOption);
 
         setFavouriteEpisodes(sortedEpisodes);
       } catch (err) {
@@ -74,20 +72,50 @@ function Favourites() {
     };
 
     fetchFavourites();
-  }, []);
+  }, [sortOption]);
 
-  const handleSortChange = (option) => {
+  const handleSortChange = (episodes, option) => {
     setSortOption(option);
     // Apply sorting logic here based on the selected option
+    switch (option) {
+      case "A-Z":
+        return episodes.sort((a, b) => a.title.localeCompare(b.title));
+      case "Z-A":
+        return episodes.sort((a, b) => b.title.localeCompare(a.title));
+      case "Latest Added":
+        return episodes.sort(
+          (a, b) => Date.parse(b.dateAdded) - Date.parse(a.dateAdded)
+        );
+      case "Oldest Added":
+        return episodes.sort(
+          (a, b) => Date.parse(a.dateAdded) - Date.parse(b.dateAdded)
+        );
+      default:
+        return episodes; // Default unsorted order
+    }
   };
 
   return (
     <div>
       <div className="flex gap-4">
         <h3>Favourites</h3>
-        <button className="w-6" onClick={() => handleSortChange("someOption")}>
-          <img src={SortImg} alt="Sort by" />
-        </button>
+        <label htmlFor="sort-options" className="sr-only">
+          Sort by:
+        </label>
+        <select
+          id="sort-options"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="p-2 rounded-lg bg-green-700 text-white"
+        >
+          <option value="default" disabled>
+            Sort by
+          </option>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+          <option value="Latest Added">Latest Added</option>
+          <option value="Oldest Added">Oldest Added</option>
+        </select>
       </div>
       <div className="bg-lime-950 p-3">
         {isLoading ? (
@@ -101,7 +129,6 @@ function Favourites() {
               file={episode.file}
               episode={episode.episode}
               dateAdded={episode.dateAdded}
-              image={episode.image || placeholderImage}
               seasonTitle={episode.seasonTitle}
               showTitle={episode.showTitle}
             />

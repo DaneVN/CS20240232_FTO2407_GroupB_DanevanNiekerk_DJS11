@@ -12,8 +12,9 @@ function FavouritesCard({
   dateAdded,
   seasonTitle,
   showTitle,
+  uid,
 }) {
-  const episodeUid = `${episode}`;
+  const episodeUid = `${uid}`;
   const [isFavourite, setIsFavourite] = React.useState(
     favourites.checkFavourites(episodeUid)
   );
@@ -25,7 +26,7 @@ function FavouritesCard({
 
   return (
     <>
-      <div className="mb-4 flex justify-between sm:justify-start sm:gap-4">
+      <div className="mb-4 flex flex-col justify-between sm:flex-row sm:gap-4">
         <h2 className="text-lg font-bold">
           {title} (Episode {episode})
         </h2>
@@ -42,7 +43,11 @@ function FavouritesCard({
           From: {showTitle} - {seasonTitle}
         </p>
         <p className="text-sm mb-2">
-          Added on: {new Date(dateAdded).toLocaleString()}
+          Added on:{" "}
+          {new Date(dateAdded).toLocaleString("en-UK", {
+            dateStyle: "long",
+            timeStyle: "short",
+          })}
         </p>
         <p className="mb-2">{description}</p>
         <audio controls>
@@ -53,6 +58,7 @@ function FavouritesCard({
     </>
   );
 }
+
 // Define prop types for validation
 FavouritesCard.propTypes = {
   episode: PropTypes.number,
@@ -63,6 +69,7 @@ FavouritesCard.propTypes = {
   image: PropTypes.string,
   seasonTitle: PropTypes.string,
   showTitle: PropTypes.string,
+  uid: PropTypes.string,
 };
 
 export default FavouritesCard;

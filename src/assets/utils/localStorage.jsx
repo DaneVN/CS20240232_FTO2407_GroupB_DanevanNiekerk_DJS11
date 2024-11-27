@@ -25,6 +25,7 @@ const favourites = {
     try {
       this.episodes = this.episodes.filter((item) => item !== favouriteUid);
       localStorage.setItem("favouriteEpisodes", JSON.stringify(this.episodes));
+      console.log("Episode removed from favourites!");
     } catch (err) {
       console.error(
         "Failed to remove episode from favourites in LocalStorage:",

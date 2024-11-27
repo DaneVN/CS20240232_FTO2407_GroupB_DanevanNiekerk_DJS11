@@ -97,7 +97,7 @@ function Favourites() {
 
   return (
     <div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <h3>Favourites</h3>
         <label htmlFor="sort-options" className="sr-only">
           Sort by:
@@ -124,6 +124,7 @@ function Favourites() {
           favouriteEpisodes.map((episode) => (
             <FavouritesCard
               key={episode.uid}
+              uid={episode.uid}
               title={episode.title}
               description={episode.description}
               file={episode.file}

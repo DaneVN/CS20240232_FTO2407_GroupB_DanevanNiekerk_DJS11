@@ -1,7 +1,7 @@
 import React from "react";
 import backBtn from "../../../public/assets/images/load-more.png";
 import starEmpty from "../../../public/assets/images/star-empty.png";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Link, Outlet, useParams } from "react-router-dom";
 
 export default function Home() {
   const [show, setShow] = React.useState({
@@ -33,9 +33,9 @@ export default function Home() {
           className="flex gap-7 justify-center items-start mb-4"
           //bg-image = season poster/ show poster when no season is selected
         >
-          <button className="shrink-0 w-8">
+          <Link to="/" relative="path" className="shrink-0 w-8">
             <img src={backBtn} alt="Go back" className="rotate-180" />
-          </button>
+          </Link>
           <div id="details" className="flex flex-col gap-3 mb-3">
             <h2>
               {show.title || "Loading..."} ({show.updated.slice(0, 10) || null})
@@ -50,7 +50,8 @@ export default function Home() {
                       isActive ? "text-lime-900" : ""
                     }
                   >
-                    Season {season.season} ( {season.episodes.length} Episodes )
+                    Season {season.season} ( {season.episodes.length}{" "}
+                    {season.episodes.length === 1 ? "Episode" : "Episodes"} )
                   </NavLink>
                 );
               })}

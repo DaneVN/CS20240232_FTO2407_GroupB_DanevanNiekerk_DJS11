@@ -11,43 +11,59 @@ function Season() {
     image: "",
     episodes: [],
   });
+  const [loading, setLoading] = React.useState(true);
   const { showId, seasonId } = useParams();
 
   React.useEffect(() => {
-    if (!showId) return; // Do nothing if showId is undefined
+    const fetchShowData = async () => {
+      if (!showId) return; // Do nothing if showId is undefined
 
-    // Fetch seasons and display based on URL parameter
-    fetch(`https://podcast-api.netlify.app/id/${showId}`)
-      .then((res) => res.json())
-      .then((data) => {
+      try {
+        const response = await fetch(
+          `https://podcast-api.netlify.app/id/${showId}`
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch show data: ${response.statusText}`);
+        }
+        const data = await response.json();
         setSeason(data.seasons[seasonId - 1]);
-      })
-      .catch((err) => console.error("Error fetching show:", err));
+      } catch (err) {
+        console.error("Error fetching show:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchShowData();
   }, [showId, seasonId]);
   // dependencies = url changes = re-render on page(show/season) change
 
   return (
-    <>
-      <div className="relative">
-        <h3 className="absolute top-0 left-[47%] bg-green-500 px-2 my-4 rounded-lg">
-          Season {seasonId}
-        </h3>
-        <img src={season.image} alt="Season cover" className="w-full" />
-      </div>
-      <section id="episode-list" className="bg-lime-950 p-3 mt-10">
-        {season.episodes.map((episode) => {
-          return (
-            <EpisodeCard
-              key={episode.episode}
-              episode={episode.episode}
-              title={episode.title}
-              description={episode.description}
-              file={episode.file}
-            />
-          );
-        })}
-      </section>
-    </>
+    <div>
+      {!loading ? (
+        <>
+          <div className="relative">
+            <h3 className="absolute top-2 left-4 bg-green-500 px-2 my-4 rounded-lg">
+              Season {seasonId}
+            </h3>
+            <img src={season.image} alt="Season cover" className="w-full" />
+          </div>
+          <section id="episode-list" className="bg-lime-950 p-3 mt-10">
+            {season.episodes.map((episode) => (
+              <EpisodeCard
+                key={episode.episode}
+                episode={episode.episode}
+                title={episode.title}
+                description={episode.description}
+                file={episode.file}
+              />
+            ))}
+          </section>
+        </>
+      ) : (
+        <h2>Loading episodes...</h2>
+      )}
+    </div>
   );
 }
 export default Season;

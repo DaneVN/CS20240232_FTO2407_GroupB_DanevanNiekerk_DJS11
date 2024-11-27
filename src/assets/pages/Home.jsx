@@ -7,6 +7,7 @@ function Home() {
   // State to hold podcasts
   const [podcasts, setPodcasts] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [sortOption, setSortOption] = React.useState("A-Z");
 
   React.useEffect(() => {
     const fetchAndSortPreviews = async () => {
@@ -17,9 +18,7 @@ function Home() {
           throw new Error(`Failed to fetch show data: ${response.statusText}`);
         }
         const data = await response.json();
-        const sortedPodcasts = [...data].sort((a, b) =>
-          a.title.localeCompare(b.title)
-        );
+        const sortedPodcasts = handleSortChange([...data], sortOption);
         setPodcasts(sortedPodcasts); // Set the sorted podcasts in state
       } catch (err) {
         console.error("Error fetching podcasts:", err);
@@ -28,7 +27,29 @@ function Home() {
       }
     };
     fetchAndSortPreviews();
-  }, []);
+  }, [sortOption]);
+
+  const handleSortChange = (data, option) => {
+    setSortOption(option);
+    // Apply sorting logic here based on the selected option
+    console.log(data);
+    switch (option) {
+      case "A-Z":
+        return data.sort((a, b) => a.title.localeCompare(b.title));
+      case "Z-A":
+        return data.sort((a, b) => b.title.localeCompare(a.title));
+      case "Latest Added":
+        return data.sort(
+          (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
+        );
+      case "Oldest Added":
+        return data.sort(
+          (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
+        );
+      default:
+        return data; // Default unsorted order
+    }
+  };
 
   return (
     <>
@@ -40,6 +61,25 @@ function Home() {
           id="home-podcast-list"
           className="bg-lime-950 p-3 relative sm:grid sm:grid-cols-2 sm:gap-3 md:grid-cols-3"
         >
+          <div className="m-3">
+            <label htmlFor="sort-options" className="sr-only">
+              Sort by:
+            </label>
+            <select
+              id="sort-options"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="p-2 rounded-lg bg-green-700 text-white"
+            >
+              <option value="default" disabled>
+                Sort by
+              </option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="Latest Added">Latest Added</option>
+              <option value="Oldest Added">Oldest Added</option>
+            </select>
+          </div>
           {/* Render sorted podcasts */}
           {podcasts.map((show) => {
             return (

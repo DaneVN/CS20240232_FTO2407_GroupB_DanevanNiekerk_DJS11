@@ -1,30 +1,49 @@
-export const favourites = {
-  episodes: [localStorage.getItem("favouriteEpisodes")],
-
-  addFavouritesToLS: (episodeString) => {
+const favourites = {
+  episodes: (() => {
     try {
-      this.episodes = [...this.episodes, episodeString];
-      localStorage.setitem("favouriteEpisodes", ...this.episodes);
+      const storedEpisodes = localStorage.getItem("favouriteEpisodes");
+      return storedEpisodes ? JSON.parse(storedEpisodes) : [];
     } catch (err) {
-      console.log("Failed to add episode to favourites in LocalStorage: ", err);
+      console.error("Failed to parse localStorage data:", err);
+      return [];
+    }
+  })(),
+
+  updateLocalStorage(favouriteUid) {
+    try {
+      this.episodes = [...this.episodes, favouriteUid];
+      localStorage.setItem("favouriteEpisodes", JSON.stringify(this.episodes));
+    } catch (err) {
+      console.error(
+        "Failed to add episode to favourites in LocalStorage:",
+        err
+      );
     }
   },
 
-  removeFromLS: (episodeString) => {
+  removeFromLS(favouriteUid) {
     try {
-      this.episodes = [...this.episodes].filter((item) => {
-        item !== episodeString;
-      });
-      localStorage.setitem("favouriteEpisodes", ...this.episodes);
+      this.episodes = this.episodes.filter((item) => item !== favouriteUid);
+      localStorage.setItem("favouriteEpisodes", JSON.stringify(this.episodes));
     } catch (err) {
-      console.log("Failed to add episode to favourites in LocalStorage: ", err);
+      console.error(
+        "Failed to remove episode from favourites in LocalStorage:",
+        err
+      );
     }
   },
 
-  checkFavourites: (episodeString) => {
-    const favouritesArray = this.episodes;
-    favouritesArray.filter((item) => {
-      item === episodeString;
-    });
+  checkFavourites(favouriteUid) {
+    return this.episodes.includes(favouriteUid);
+  },
+
+  toggleFavouriteLS(favouriteUid) {
+    if (this.checkFavourites(favouriteUid)) {
+      this.removeFromLS(favouriteUid);
+    } else {
+      this.updateLocalStorage(favouriteUid);
+    }
   },
 };
+
+export { favourites };

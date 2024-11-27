@@ -1,14 +1,23 @@
-import React from "react";
+//eslint-disable-next-line
+import React, { useState, useEffect } from "react";
 import starFull from "../../../public/assets/images/star-full.png";
 import starEmpty from "../../../public/assets/images/star-empty.png";
+import { favourites } from "../utils/localStorage.jsx";
 import PropTypes from "prop-types";
 
-function EpisodeCard({ episode, title, description, file }) {
-  const [favourite, setFavourite] = React.useState();
+function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
+  const EpisodeUid = `${showId}-${seasonId}-${episode}`;
+  const [isFavourite, setIsFavourite] = useState(false);
 
-  function toggleFavourite() {
-    setFavourite(!favourite);
-  }
+  // Sync initial state with local storage
+  useEffect(() => {
+    setIsFavourite(favourites.checkFavourites(EpisodeUid));
+  }, [EpisodeUid]);
+
+  const handleToggleFavourite = () => {
+    favourites.toggleFavouriteLS(EpisodeUid);
+    setIsFavourite(!isFavourite); // Update local UI state
+  };
 
   return (
     <>
@@ -16,16 +25,16 @@ function EpisodeCard({ episode, title, description, file }) {
         <h2>
           Episode {episode}: {title}
         </h2>
-        <button onClick={toggleFavourite}>
+        <button onClick={handleToggleFavourite}>
           <img
-            className="w-6 sm: h-6"
-            src={favourite ? starFull : starEmpty}
-            alt="favourite"
+            className="w-6 sm:h-6"
+            src={isFavourite ? starFull : starEmpty}
+            alt={isFavourite ? "Remove from favourites" : "Add to favourites"}
           />
         </button>
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
-        <p className="mb-22">{description}</p>
+        <p className="mb-2">{description}</p>
         <audio controls>
           <source src={file} type="audio/mpeg" />
           Your browser does not support the audio element.
@@ -35,13 +44,14 @@ function EpisodeCard({ episode, title, description, file }) {
   );
 }
 
-//Fixing ESlint bug on props destructuring: 'description/genre/etc' is missing in props validation
-// Define prop types for validation
+// Prop validation
 EpisodeCard.propTypes = {
-  description: PropTypes.string,
-  episode: PropTypes.number,
-  title: PropTypes.string,
-  file: PropTypes.string,
+  showId: PropTypes.string.isRequired,
+  seasonId: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  episode: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  file: PropTypes.string.isRequired,
 };
 
 export default EpisodeCard;

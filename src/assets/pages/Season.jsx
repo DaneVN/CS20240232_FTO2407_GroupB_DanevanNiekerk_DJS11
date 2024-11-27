@@ -43,7 +43,7 @@ function Season() {
       {!loading ? (
         <>
           <div className="relative">
-            <h3 className="absolute top-2 left-4 bg-green-500 px-2 my-4 rounded-lg">
+            <h3 className="absolute bottom-2 left-4 bg-green-500 px-2 my-4 rounded-lg">
               Season {seasonId}
             </h3>
             <img src={season.image} alt="Season cover" className="w-full" />
@@ -52,6 +52,8 @@ function Season() {
             {season.episodes.map((episode) => (
               <EpisodeCard
                 key={episode.episode}
+                showId={showId}
+                seasonId={seasonId}
                 episode={episode.episode}
                 title={episode.title}
                 description={episode.description}

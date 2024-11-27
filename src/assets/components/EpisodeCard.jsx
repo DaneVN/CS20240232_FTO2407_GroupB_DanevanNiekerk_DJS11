@@ -1,21 +1,27 @@
-//eslint-disable-next-line
 import React from "react";
-// import starFull from "../../../public/assets/images/star-full.png";
+import starFull from "../../../public/assets/images/star-full.png";
 import starEmpty from "../../../public/assets/images/star-empty.png";
 import PropTypes from "prop-types";
 
 function EpisodeCard({ episode, title, description, file }) {
-  // function toggleFavourite() {}
+  const [favourite, setFavourite] = React.useState();
+
+  function toggleFavourite() {
+    setFavourite(!favourite);
+  }
+
   return (
     <>
       <div className="mb-4 flex justify-between sm:justify-start sm:gap-4">
         <h2>
           Episode {episode}: {title}
         </h2>
-        <button
-        // onClick={toggleFavourite}
-        >
-          <img className="w-6 sm: h-6" src={starEmpty} alt="favourite" />
+        <button onClick={toggleFavourite}>
+          <img
+            className="w-6 sm: h-6"
+            src={favourite ? starFull : starEmpty}
+            alt="favourite"
+          />
         </button>
       </div>
       <div className="bg-lime-900 rounded-lg p-4">

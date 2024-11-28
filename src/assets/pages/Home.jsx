@@ -8,7 +8,8 @@ function Home() {
   const [loading, setLoading] = React.useState(true);
   const [sortOption, setSortOption] = React.useState("A-Z");
   const [genres, setGenres] = React.useState([]);
-  const [filterOption, setFilterOption] = React.useState(null);
+  const [genreNames, setGenreNames] = React.useState([]);
+  const [filterOption, setFilterOption] = React.useState("");
 
   React.useEffect(() => {
     setLoading(true);
@@ -36,46 +37,64 @@ function Home() {
       }
     };
 
-    const getUniqueGenres = (arrayPodcasts) => {
-      const genres = [];
-      arrayPodcasts.forEach((show) => {
-        genres.push(...show.genres);
-        genres.sort((a, b) => a - b);
-      });
-      return [...new Set(genres)]; // Return unique genres
+    const getUniqueGenres = (data) => {
+      const genres = data.flatMap((show) => show.genres);
+      return [...new Set(genres)].sort();
     };
 
     fetchAndSortPreviews();
   }, [sortOption, filterOption]);
 
+  React.useEffect(() => {
+    const fetchAllGenres = async () => {
+      try {
+        const genrePromises = genres.map(async (id) => {
+          const response = await fetch(
+            `https://podcast-api.netlify.app/genre/${id}`
+          );
+          if (!response.ok) throw new Error(`Failed to fetch genre ${id}`);
+
+          const data = await response.json();
+          return { id, title: data.title };
+        });
+
+        const resolvedGenres = await Promise.all(genrePromises);
+        const genreMap = resolvedGenres.reduce((acc, { id, title }) => {
+          acc[id] = title;
+          return acc;
+        }, {});
+
+        setGenreNames(genreMap);
+      } catch (err) {
+        console.error("Error fetching genre names:", err);
+      }
+    };
+
+    if (genres.length > 0) fetchAllGenres();
+  }, [genres]);
+
   const handleSortChange = (data, option) => {
-    setSortOption(option);
-    setLoading(true);
-    // Apply sorting logic here based on the selected option
     switch (option) {
       case "A-Z":
-        return data.sort((a, b) => a.title.localeCompare(b.title));
+        return [...data].sort((a, b) => a.title.localeCompare(b.title));
       case "Z-A":
-        return data.sort((a, b) => b.title.localeCompare(a.title));
+        return [...data].sort((a, b) => b.title.localeCompare(a.title));
       case "Recently updated":
-        return data.sort(
+        return [...data].sort(
           (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
         );
       case "Oldest Updated":
-        return data.sort(
+        return [...data].sort(
           (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
         );
-      default:
-        return data; // Default unsorted order
+      case "default":
+        return data;
     }
   };
 
   const handleFilterChange = (shows, option) => {
-    setFilterOption(option);
-    const filteredShows = shows.filter((show) => show.genres.includes(option));
-    console.log("option: ", filteredShows);
-    setLoading(false);
-    return !filteredShows.length ? shows : filteredShows;
+    if (!option || option === "default") return shows;
+    return [...shows].filter((show) => show.genres.includes(option));
   };
 
   return (
@@ -94,9 +113,7 @@ function Home() {
             onChange={(e) => setSortOption(e.target.value)}
             className="p-2 rounded-lg bg-green-700 text-white"
           >
-            <option value="default" disabled>
-              Sort by
-            </option>
+            <option value="default">Sort by</option>
             <option value="A-Z">A-Z</option>
             <option value="Z-A">Z-A</option>
             <option value="Latest Added">Latest Added</option>
@@ -113,14 +130,18 @@ function Home() {
             onChange={(e) => setFilterOption(e.target.value)}
             className="p-2 rounded-lg bg-green-700 text-white"
           >
-            <option value="default" disabled>
-              Filter Genre
+            <option value="default">
+              {genres.length === 0 ? "Loading genres..." : "Filter Genre"}
             </option>
-            {genres.map((genre) => (
-              <option key={`genre-${genre}`} value={genre}>
-                {genre}
-              </option>
-            ))}
+            {genres.length > 0 ? (
+              genres.map((genre) => (
+                <option key={`genre-${genre}`} value={genre}>
+                  {genreNames[genre] || `Genre ${genre}`}
+                </option>
+              ))
+            ) : (
+              <option disabled>Loading genres...</option>
+            )}
           </select>
         </div>
       </div>

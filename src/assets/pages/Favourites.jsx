@@ -15,9 +15,7 @@ function Favourites() {
     const fetchFavourites = async () => {
       try {
         const allEpisodes = [];
-
-        for (const showId of showIds) {
-          // Check cache to avoid duplicate API calls
+        const fetchPromises = showIds.map(async (showId) => {
           if (!episodesCache.has(showId)) {
             const response = await fetch(
               `https://podcast-api.netlify.app/id/${showId}`
@@ -34,18 +32,22 @@ function Favourites() {
                 season.episodes.map((ep) => ({
                   ...ep,
                   showId,
-                  seasonId: index + 1, // Add season index as seasonId
-                  seasonTitle: season.title, // Include season title
-                  showTitle: data.title, // Include show title
+                  seasonId: index + 1,
+                  seasonTitle: season.title,
+                  showTitle: data.title,
+                  lastUpdated: data.updated,
                 }))
               ) || []
             );
           }
+          return episodesCache.get(showId);
+        });
 
-          // Fetch and map episodes for this showId
-          const showEpisodes = episodesCache.get(showId);
+        const fetchedShows = await Promise.all(fetchPromises);
+
+        fetchedShows.forEach((showEpisodes, i) => {
           const filteredEpisodes = episodesList
-            .filter((uid) => uid.startsWith(showId))
+            .filter((uid) => uid.startsWith(showIds[i]))
             .map((uid) => {
               const episodeId = parseInt(uid.split("-")[2], 10);
               const episodeData = showEpisodes.find(
@@ -56,10 +58,10 @@ function Favourites() {
                 ? { ...episodeData, uid, dateAdded: dateAdded.toISOString() }
                 : null;
             })
-            .filter(Boolean); // Remove null values
-
+            .filter(Boolean);
           allEpisodes.push(...filteredEpisodes);
-        }
+        });
+
         const sortedEpisodes = handleSortChange(allEpisodes, sortOption);
 
         // Group episodes by show
@@ -100,22 +102,25 @@ function Favourites() {
 
   const handleSortChange = (episodes, option) => {
     setSortOption(option);
-    // Apply sorting logic here based on the selected option
+    //use spread operator to make a shallow copy of OG array before sorting
     switch (option) {
       case "A-Z":
-        return episodes.sort((a, b) => a.title.localeCompare(b.title));
+        return [...episodes].sort((a, b) => a.title.localeCompare(b.title));
       case "Z-A":
-        return episodes.sort((a, b) => b.title.localeCompare(a.title));
+        return [...episodes].sort((a, b) => b.title.localeCompare(a.title));
       case "Recently Updated":
-        return episodes.sort(
-          (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
+        return [...episodes].sort(
+          (a, b) => Date.parse(b.lastUpdated) - Date.parse(a.lastUpdated)
         );
       case "Oldest Updated":
-        return episodes.sort(
-          (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
+        return [...episodes].sort(
+          (a, b) => Date.parse(a.lastUpdated) - Date.parse(b.lastUpdated)
         );
+      case "default":
+        return episodes;
+      //and just in case
       default:
-        return episodes; // Default unsorted order
+        return episodes;
     }
   };
 
@@ -132,13 +137,11 @@ function Favourites() {
           onChange={(e) => setSortOption(e.target.value)}
           className="p-2 rounded-lg bg-green-700 text-white"
         >
-          <option value="default" disabled>
-            Sort by
-          </option>
+          <option value="default">Sort by</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
-          <option value="Latest Added">Latest Added</option>
-          <option value="Oldest Added">Oldest Added</option>
+          <option value="Latest Updated">Latest Updated</option>
+          <option value="Oldest Updated">Oldest Updated</option>
         </select>
       </div>
       <div className="bg-lime-950 p-3">
@@ -146,12 +149,12 @@ function Favourites() {
           <h3>Loading favourites...</h3>
         ) : favouriteEpisodes.length > 0 ? (
           favouriteEpisodes.map((showObj) => (
-            <section id="show" key={showObj.showTitle}>
+            <section id="show" key={showObj.showTitle} className="mb-14">
               <h3 className="bg-green-800 p-3">{showObj.showTitle}</h3>
               <div id="season">
                 {Object.entries(showObj.seasons).map(([seasonId, episodes]) => (
                   <div key={seasonId}>
-                    <h4 className="bg-green-500 p-3">Season {seasonId}</h4>
+                    <h4 className="bg-green-500 p-3 mb-3">Season {seasonId}</h4>
                     {episodes.map((episode) => (
                       <FavouritesCard
                         key={episode.uid}

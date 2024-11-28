@@ -11,6 +11,7 @@ function Home() {
   const [filterOption, setFilterOption] = React.useState(null);
 
   React.useEffect(() => {
+    setLoading(true);
     const fetchAndSortPreviews = async () => {
       try {
         // Fetch podcasts and sort them alphabetically by title
@@ -49,6 +50,7 @@ function Home() {
 
   const handleSortChange = (data, option) => {
     setSortOption(option);
+    setLoading(true);
     // Apply sorting logic here based on the selected option
     switch (option) {
       case "A-Z":
@@ -72,6 +74,7 @@ function Home() {
     setFilterOption(option);
     const filteredShows = shows.filter((show) => show.genres.includes(option));
     console.log("option: ", filteredShows);
+    setLoading(false);
     return !filteredShows.length ? shows : filteredShows;
   };
 

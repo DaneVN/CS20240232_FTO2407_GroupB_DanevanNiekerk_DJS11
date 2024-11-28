@@ -8,6 +8,7 @@ function Favourites() {
   const [sortOption, setSortOption] = React.useState("A-Z");
 
   React.useEffect(() => {
+    setIsLoading(true);
     const episodesList = favourites.episodes; // Array of episode UIDs
     const showIds = [...new Set(episodesList.map((uid) => uid.split("-")[0]))]; // Extract unique showIds
     const episodesCache = new Map(); // Local cache to store API data

@@ -6,7 +6,14 @@ import { TrackContext } from "../context/TrackContext";
 function ProgressBar() {
   const { currentTrack } = React.useContext(TrackContext);
 
-  if (!currentTrack) return null; // Show nothing if no track is playing
+  if (!currentTrack) {
+    return null;
+  } else {
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  } // Show nothing if no track is playing else setup eventListener
 
   return (
     <section className="progress-bar fixed bottom-0 px-8 bg-slate-700 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">

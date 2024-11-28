@@ -93,6 +93,9 @@ function Home() {
   };
 
   const handleFilterChange = (shows, option) => {
+    setFilterOption(Number(option));
+
+    // If no option or default is selected, return all shows
     if (!option || option === "default") return shows;
     return [...shows].filter((show) => show.genres.includes(option));
   };

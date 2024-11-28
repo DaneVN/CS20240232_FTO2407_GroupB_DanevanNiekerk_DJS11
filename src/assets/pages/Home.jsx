@@ -45,7 +45,7 @@ function Home() {
     };
 
     fetchAndSortPreviews();
-  }, [sortOption]);
+  }, [sortOption, filterOption]);
 
   const handleSortChange = (data, option) => {
     setSortOption(option);
@@ -101,12 +101,12 @@ function Home() {
           </select>
         </div>
         <div id="genre-filter">
-          <label htmlFor="sort-options" className="sr-only">
+          <label htmlFor="filter-options" className="sr-only">
             Filter Genre:
           </label>
           <select
-            id="sort-options"
-            value={sortOption}
+            id="filter-options"
+            value={filterOption}
             onChange={(e) => setFilterOption(e.target.value)}
             className="p-2 rounded-lg bg-green-700 text-white"
           >

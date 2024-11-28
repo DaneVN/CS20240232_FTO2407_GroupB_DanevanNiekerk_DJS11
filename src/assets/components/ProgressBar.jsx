@@ -3,7 +3,12 @@ import React from "react";
 import { useCurrentTrack } from "../context/CurrentTrackContext";
 
 function ProgressBar() {
-  const { currentTrack, togglePlayPause, audioRef } = useCurrentTrack();
+  const { currentTrack, handlePlayPause } = useCurrentTrack();
+
+  if (!currentTrack || !handlePlayPause) {
+    console.error("CurrentTrackContext not provided!");
+    return null;
+  }
 
   return (
     <section className="fixed bottom-0 px-8 bg-slate-700 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">
@@ -13,10 +18,18 @@ function ProgressBar() {
         </p>
       </div>
       <div id="controls" className="col-span-2 flex justify-center gap-4">
-        <button onClick={togglePlayPause}>
+        <audio
+          controls
+          src={currentTrack.file}
+          ref={(ref) => {
+            if (ref && ref !== currentTrack.audioElement) {
+              currentTrack.audioElement = ref;
+            }
+          }}
+        />
+        <button onClick={() => handlePlayPause(currentTrack)}>
           {currentTrack.isPlaying ? "Pause" : "Play"}
         </button>
-        <audio ref={audioRef} controls style={{ display: "none" }} />
       </div>
     </section>
   );

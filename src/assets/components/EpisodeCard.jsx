@@ -7,8 +7,15 @@ import { useCurrentTrack } from "../context/CurrentTrackContext";
 
 function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
   const [isFavourite, setIsFavourite] = React.useState(false);
-  const EpisodeUid = `${showId}-${seasonId}-${episode}`; // Unique identifier
-  const { currentTrack, playTrack, togglePlayPause } = useCurrentTrack();
+  const { currentTrack, handlePlayPause } = useCurrentTrack();
+  const EpisodeUid = `${showId}-${seasonId}-${episode}`;
+
+  const handlePlay = () => {
+    handlePlayPause({ title, file, EpisodeUid });
+  };
+
+  const isCurrent = currentTrack.EpisodeUid === EpisodeUid;
+  const isPlaying = isCurrent && currentTrack.isPlaying;
 
   // Sync initial state with local storage
   React.useEffect(() => {
@@ -19,8 +26,6 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
     favourites.toggleFavouriteLS(EpisodeUid);
     setIsFavourite(!isFavourite);
   };
-
-  const isCurrentTrack = currentTrack.EpisodeUid === EpisodeUid;
 
   return (
     <>
@@ -38,15 +43,7 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
         <p className="mb-2">{description}</p>
-        <button
-          onClick={() =>
-            isCurrentTrack
-              ? togglePlayPause()
-              : playTrack({ title, file, EpisodeUid })
-          }
-        >
-          {isCurrentTrack && currentTrack.isPlaying ? "Pause" : "Play"}
-        </button>
+        <button onClick={handlePlay}>{isPlaying ? "Pause" : "Play"}</button>
       </div>
     </>
   );

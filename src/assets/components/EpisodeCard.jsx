@@ -1,13 +1,13 @@
-//eslint-disable-next-line
 import React, { useState, useEffect } from "react";
 import starFull from "../images/star-full.png";
 import starEmpty from "../images/star-empty.png";
-import { favourites, trackHistory } from "../utils/localStorage.jsx";
+import { favourites } from "../utils/localStorage.jsx";
 import PropTypes from "prop-types";
+import { TrackContext } from "../context/TrackContext";
 
 function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
-  const EpisodeUid = `${showId}-${seasonId}-${episode}`;
   const [isFavourite, setIsFavourite] = useState(false);
+  const EpisodeUid = `${showId}-${seasonId}-${episode}`;
 
   // Sync initial state with local storage
   useEffect(() => {
@@ -17,6 +17,20 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
   const handleToggleFavourite = () => {
     favourites.toggleFavouriteLS(EpisodeUid);
     setIsFavourite(!isFavourite); // Update local UI state
+  };
+
+  const { updateTrack } = React.useContext(TrackContext);
+
+  const handlePlay = () => {
+    const trackData = {
+      showId,
+      seasonId,
+      episode,
+      title,
+      file,
+      isFavourite: false,
+    };
+    updateTrack(trackData);
   };
 
   return (
@@ -35,19 +49,7 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
         <p className="mb-2">{description}</p>
-        <audio
-          controls
-          onPlay={() =>
-            trackHistory.addTrack({
-              title,
-              file,
-              isFavourite,
-              showId,
-              seasonId,
-              episode,
-            })
-          }
-        >
+        <audio controls onPlay={handlePlay}>
           <source src={file} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>

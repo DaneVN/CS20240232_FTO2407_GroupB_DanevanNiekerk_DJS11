@@ -49,46 +49,4 @@ const favourites = {
   },
 };
 
-// ========= HISTORY ========== //
-
-const trackHistory = {
-  fiveLatest: (() => {
-    try {
-      const storedHistory = localStorage.getItem("trackHistory");
-      return storedHistory ? JSON.parse(storedHistory) : [];
-    } catch (err) {
-      console.error("Failed to parse localStorage data:", err);
-      // Clear invalid data and return an empty array
-      localStorage.removeItem("trackHistory");
-      return [];
-    }
-  })(),
-
-  addTrack(episodeData) {
-    try {
-      // Ensure `episodeData` is a valid object
-      if (typeof episodeData !== "object" || episodeData === null) {
-        throw new Error("Invalid track data; expected an object.");
-      }
-
-      // Avoid adding duplicate entries
-      const existingIndex = this.fiveLatest.findIndex(
-        (track) => track.title === episodeData.title
-      );
-      if (existingIndex !== -1) {
-        this.fiveLatest.splice(existingIndex, 1);
-      }
-      if (this.fiveLatest.length >= 5) {
-        this.fiveLatest.shift();
-      }
-      this.fiveLatest.push(episodeData);
-
-      // Sync with localStorage using JSON.stringify
-      localStorage.setItem("trackHistory", JSON.stringify(this.fiveLatest));
-    } catch (err) {
-      console.error("Failed to update track history:", err);
-    }
-  },
-};
-
-export { favourites, trackHistory };
+export { favourites };

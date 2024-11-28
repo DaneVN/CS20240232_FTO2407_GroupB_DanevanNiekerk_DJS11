@@ -61,10 +61,54 @@ function Favourites() {
           allEpisodes.push(...filteredEpisodes);
         }
 
-        // Apply sorting logic here
+        // Sort episodes if needed (you mentioned sorting logic)
         const sortedEpisodes = handleSortChange(allEpisodes, sortOption);
 
-        setFavouriteEpisodes(sortedEpisodes);
+        // Step 1: Group episodes by show
+        const showGrouped = sortedEpisodes.reduce((acc, episode) => {
+          const { showTitle } = episode;
+          if (!acc[showTitle]) acc[showTitle] = [];
+          acc[showTitle].push(episode);
+          return acc;
+        }, {});
+
+        // Step 2: Group episodes by season within each show
+        const groupedEpisodes = Object.entries(showGrouped).map(
+          ([showTitle, episodes]) => {
+            const seasons = episodes.reduce((seasonAcc, episode) => {
+              const { seasonId } = episode;
+              if (!seasonAcc[seasonId]) seasonAcc[seasonId] = [];
+              seasonAcc[seasonId].push(episode);
+              return seasonAcc;
+            }, {});
+
+            return {
+              showTitle,
+              seasons,
+            };
+          }
+        );
+
+        // Log and set the state
+        console.log("groupedEpisodes:", groupedEpisodes);
+        // Example output:
+        // [
+        //   {
+        //     showTitle: "Accused",
+        //     seasons: {
+        //       "1": [Array of episodes for season 1],
+        //       "2": [Array of episodes for season 2],
+        //     },
+        //   },
+        //   {
+        //     showTitle: "1865",
+        //     seasons: {
+        //       "1": [Array of episodes for season 1],
+        //     },
+        //   },
+        // ];
+
+        setFavouriteEpisodes(groupedEpisodes);
       } catch (err) {
         console.error("Failed to fetch favourite episodes:", err);
       } finally {
@@ -78,18 +122,19 @@ function Favourites() {
   const handleSortChange = (episodes, option) => {
     setSortOption(option);
     // Apply sorting logic here based on the selected option
+    console.log(episodes);
     switch (option) {
       case "A-Z":
         return episodes.sort((a, b) => a.title.localeCompare(b.title));
       case "Z-A":
         return episodes.sort((a, b) => b.title.localeCompare(a.title));
-      case "Latest Added":
+      case "Recently Updated":
         return episodes.sort(
-          (a, b) => Date.parse(b.dateAdded) - Date.parse(a.dateAdded)
+          (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
         );
-      case "Oldest Added":
+      case "Oldest Updated":
         return episodes.sort(
-          (a, b) => Date.parse(a.dateAdded) - Date.parse(b.dateAdded)
+          (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
         );
       default:
         return episodes; // Default unsorted order
@@ -122,18 +167,24 @@ function Favourites() {
         {isLoading ? (
           <h3>Loading favourites...</h3>
         ) : favouriteEpisodes.length > 0 ? (
-          favouriteEpisodes.map((episode) => (
-            <FavouritesCard
-              key={episode.uid}
-              uid={episode.uid}
-              title={episode.title}
-              description={episode.description}
-              file={episode.file}
-              episode={episode.episode}
-              dateAdded={episode.dateAdded}
-              seasonTitle={episode.seasonTitle}
-              showTitle={episode.showTitle}
-            />
+          favouriteEpisodes.map((showObj) => (
+            <>
+              <section id="show">
+                <div id="season">
+                  {/* <FavouritesCard
+                    key={episode.uid}
+                    uid={episode.uid}
+                    title={episode.title}
+                    description={episode.description}
+                    file={episode.file}
+                    episode={episode.episode}
+                    dateAdded={episode.dateAdded}
+                    seasonTitle={episode.seasonTitle}
+                    showTitle={episode.showTitle}
+                  /> */}
+                </div>
+              </section>
+            </>
           ))
         ) : (
           <h3>No favourite episodes found</h3>

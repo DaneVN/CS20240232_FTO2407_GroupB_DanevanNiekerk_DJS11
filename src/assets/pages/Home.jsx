@@ -57,11 +57,11 @@ function Home() {
         return data.sort((a, b) => a.title.localeCompare(b.title));
       case "Z-A":
         return data.sort((a, b) => b.title.localeCompare(a.title));
-      case "Latest Added":
+      case "Latest Updated":
         return data.sort(
           (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
         );
-      case "Oldest Added":
+      case "Oldest Updated":
         return data.sort(
           (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
         );

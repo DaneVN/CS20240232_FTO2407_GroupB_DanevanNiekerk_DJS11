@@ -1,6 +1,6 @@
 import React from "react";
-import starFull from "../../../public/assets/images/star-full.png";
-import starEmpty from "../../../public/assets/images/star-empty.png";
+import starFull from "../images/star-full.png";
+import starEmpty from "../images/star-empty.png";
 import { favourites } from "../utils/localStorage";
 import PropTypes from "prop-types";
 

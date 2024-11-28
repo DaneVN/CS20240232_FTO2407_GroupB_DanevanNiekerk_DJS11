@@ -1,10 +1,10 @@
 //eslint-disable-next-line
 import React from "react";
-import PrevAudio from "../../../public/assets/images/left.png";
-import Play from "../../../public/assets/images/play-button.png";
-// import Pause from "../../../public/assets/images/pause-button.png";
-import NextAudio from "../../../public/assets/images/right.png";
-import starEmpty from "../../../public/assets/images/star-empty.png";
+import PrevAudio from "../images/left.png";
+import Play from "../images/play-button.png";
+// import Pause from "../images/pause-button.png";
+import NextAudio from "../images/right.png";
+import starEmpty from "../images/star-empty.png";
 
 function ProgressBar() {
   // const [currentTrack, setCurrentTrack] = React.useState()

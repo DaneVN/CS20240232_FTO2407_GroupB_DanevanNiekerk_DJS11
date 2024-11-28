@@ -1,39 +1,58 @@
-//eslint-disable-next-line
 import React from "react";
-import PrevAudio from "../images/left.png";
-import Play from "../images/play-button.png";
-// import Pause from "../images/pause-button.png";
-import NextAudio from "../images/right.png";
+import { trackHistory } from "../utils/localStorage";
 import starEmpty from "../images/star-empty.png";
+import starFull from "../images/star-full.png";
 
 function ProgressBar() {
-  // const [currentTrack, setCurrentTrack] = React.useState()
+  const [trackList, setTrackList] = React.useState(trackHistory.fiveLatest); // Initialize from localStorage
+  const currentTrack = trackList[trackList.length - 1]; // Last played track
+
+  React.useEffect(() => {
+    // Function to sync state with localStorage
+    const syncTrackHistory = () => {
+      const storedHistory =
+        JSON.parse(localStorage.getItem("trackHistory")) || [];
+      setTrackList(storedHistory);
+    };
+
+    // Listen for changes to localStorage
+    window.addEventListener("storage", syncTrackHistory);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("storage", syncTrackHistory);
+    };
+  }, [currentTrack]);
+
+  if (!currentTrack) {
+    return null; // No track playing, don't render the progress bar
+  }
+
   return (
     <section className="fixed bottom-0 px-8 bg-slate-700 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">
       <div className="items-center max-w-[90%] overflow-hidden sm:flex sm:gap-3">
         <p className="truncate whitespace-nowrap text-ellipsis">
-          title title title title title title title
+          {currentTrack.title || "Unknown Title"}
         </p>
         <button className="shrink-0 w-8">
-          <img src={starEmpty} alt="favourite" className="w-6" />
+          <img
+            src={currentTrack.isFavourite ? starFull : starEmpty}
+            alt={
+              currentTrack.isFavourite
+                ? "Remove from favourites"
+                : "Add to favourites"
+            }
+            className="w-6"
+          />
         </button>
       </div>
-      <div id="controls" className="flex justify-center gap-4">
-        <button>
-          <img className="w-8" src={PrevAudio} alt="previous audio" />
-        </button>
-        <button>
-          <img className="w-7" src={Play} alt="play audio" />
-        </button>
-        {/* <button>
-              <img className="w-7" src={Pause} alt="pause audio" />
-            </button>   ---> conditional rendering based on if current track is playing!*/}
-        <button>
-          <img className="w-8" src={NextAudio} alt="next audio" />
-        </button>
+      <div id="controls" className="col-span-2 flex justify-center gap-4">
+        <audio controls className="w-full bg-slate-700" src={currentTrack.file}>
+          Your browser does not support the audio element.
+        </audio>
       </div>
-      <p className="justify-self-end">00:00</p>
     </section>
   );
 }
+
 export default ProgressBar;

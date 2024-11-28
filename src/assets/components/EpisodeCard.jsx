@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import starFull from "../images/star-full.png";
 import starEmpty from "../images/star-empty.png";
-import { favourites } from "../utils/localStorage.jsx";
+import { favourites, trackHistory } from "../utils/localStorage.jsx";
 import PropTypes from "prop-types";
 
 function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
@@ -35,7 +35,19 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
         <p className="mb-2">{description}</p>
-        <audio controls>
+        <audio
+          controls
+          onPlay={() =>
+            trackHistory.addTrack({
+              title,
+              file,
+              isFavourite,
+              showId,
+              seasonId,
+              episode,
+            })
+          }
+        >
           <source src={file} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>

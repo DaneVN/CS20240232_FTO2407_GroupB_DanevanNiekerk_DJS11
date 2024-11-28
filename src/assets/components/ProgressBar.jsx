@@ -1,5 +1,7 @@
 //eslint-disable-next-line
 import React from "react";
+import Pause from "../images/pause.png";
+import Play from "../images/play-button.png";
 import { useCurrentTrack } from "../context/CurrentTrackContext";
 
 function ProgressBar() {
@@ -18,6 +20,13 @@ function ProgressBar() {
         </p>
       </div>
       <div id="controls" className="col-span-2 flex justify-center gap-4">
+        <button onClick={() => handlePlayPause(currentTrack)}>
+          <img
+            className="w-8"
+            src={currentTrack.isPlaying ? Pause : Play}
+            alt={currentTrack.isPlaying ? "Pause" : "Play"}
+          />
+        </button>
         <audio
           controls
           src={currentTrack.file}
@@ -27,9 +36,6 @@ function ProgressBar() {
             }
           }}
         />
-        <button onClick={() => handlePlayPause(currentTrack)}>
-          {currentTrack.isPlaying ? "Pause" : "Play"}
-        </button>
       </div>
     </section>
   );

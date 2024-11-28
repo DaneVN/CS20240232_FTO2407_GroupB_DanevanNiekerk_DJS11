@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { favourites } from "../utils/localStorage.jsx";
 import starFull from "../images/star-full.png";
 import starEmpty from "../images/star-empty.png";
+import Pause from "../images/pause.png";
+import Play from "../images/play-button.png";
 import { useCurrentTrack } from "../context/CurrentTrackContext";
 
 function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
@@ -43,7 +45,13 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
         <p className="mb-2">{description}</p>
-        <button onClick={handlePlay}>{isPlaying ? "Pause" : "Play"}</button>
+        <button onClick={handlePlay}>
+          <img
+            className="w-8"
+            src={isPlaying ? Pause : Play}
+            alt={isPlaying ? "Pause" : "Play"}
+          />
+        </button>
       </div>
     </>
   );

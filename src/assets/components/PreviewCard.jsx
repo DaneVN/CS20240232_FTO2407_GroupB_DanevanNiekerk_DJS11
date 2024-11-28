@@ -15,6 +15,7 @@ function PreviewCard({
   const [isOverflowing, setIsOverflowing] = React.useState(false); // Check if text overflows
   const descriptionRef = React.useRef(null); // Reference to the description element
 
+  //NO HARDCODED STUFF!!!
   const genresStrings = [
     [1, "Personal Growth"],
     [2, "Investigative Journalism"],

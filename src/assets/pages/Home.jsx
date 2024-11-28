@@ -1,7 +1,6 @@
 import React from "react";
 import LastListened from "../components/LastListened";
 import PreviewCard from "../components/PreviewCard";
-import loadMore from "../images/load-more.png";
 
 function Home() {
   // State to hold podcasts
@@ -9,7 +8,7 @@ function Home() {
   const [loading, setLoading] = React.useState(true);
   const [sortOption, setSortOption] = React.useState("A-Z");
   const [genres, setGenres] = React.useState([]);
-  // const [filterGenre, setFilterGenre] = React.useState(null);
+  const [filterOption, setFilterOption] = React.useState(null);
 
   React.useEffect(() => {
     const fetchAndSortPreviews = async () => {
@@ -21,8 +20,12 @@ function Home() {
         }
         const data = await response.json();
         const sortedPodcasts = handleSortChange([...data], sortOption);
+        const filteredPodcasts = handleFilterChange(
+          sortedPodcasts,
+          filterOption
+        );
 
-        setPodcasts(sortedPodcasts); // Set the sorted podcasts in state
+        setPodcasts(filteredPodcasts); // Set the sorted podcasts in state
 
         setGenres(() => getUniqueGenres(sortedPodcasts));
       } catch (err) {
@@ -65,6 +68,13 @@ function Home() {
     }
   };
 
+  const handleFilterChange = (shows, option) => {
+    setFilterOption(option);
+    const filteredShows = shows.filter((show) => show.genres.includes(option));
+    console.log("option: ", filteredShows);
+    return !filteredShows.length ? shows : filteredShows;
+  };
+
   return (
     <>
       <h2>You were listening to:</h2>
@@ -97,7 +107,7 @@ function Home() {
           <select
             id="sort-options"
             value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
+            onChange={(e) => setFilterOption(e.target.value)}
             className="p-2 rounded-lg bg-green-700 text-white"
           >
             <option value="default" disabled>
@@ -132,10 +142,10 @@ function Home() {
             );
           })}
 
-          <button className="absolute top-1/2 right-0 hover:animate-bounce">
-            {/* Add a react-spring animation here later */}
+          {/* Add a react-spring animation here later */}
+          {/* <button className="absolute top-1/2 right-0 hover:animate-bounce">
             <img src={loadMore} alt="arrow to the right" className="w-14" />
-          </button>
+          </button> */}
         </div>
       ) : (
         <h3>Loading Podcasts...</h3>

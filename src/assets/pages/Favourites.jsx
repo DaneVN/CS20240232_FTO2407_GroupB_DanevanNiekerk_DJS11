@@ -60,11 +60,9 @@ function Favourites() {
 
           allEpisodes.push(...filteredEpisodes);
         }
-
-        // Sort episodes if needed (you mentioned sorting logic)
         const sortedEpisodes = handleSortChange(allEpisodes, sortOption);
 
-        // Step 1: Group episodes by show
+        // Group episodes by show
         const showGrouped = sortedEpisodes.reduce((acc, episode) => {
           const { showTitle } = episode;
           if (!acc[showTitle]) acc[showTitle] = [];
@@ -72,7 +70,7 @@ function Favourites() {
           return acc;
         }, {});
 
-        // Step 2: Group episodes by season within each show
+        // Group episodes by season within each show
         const groupedEpisodes = Object.entries(showGrouped).map(
           ([showTitle, episodes]) => {
             const seasons = episodes.reduce((seasonAcc, episode) => {
@@ -89,25 +87,6 @@ function Favourites() {
           }
         );
 
-        // Log and set the state
-        console.log("groupedEpisodes:", groupedEpisodes);
-        // Example output:
-        // [
-        //   {
-        //     showTitle: "Accused",
-        //     seasons: {
-        //       "1": [Array of episodes for season 1],
-        //       "2": [Array of episodes for season 2],
-        //     },
-        //   },
-        //   {
-        //     showTitle: "1865",
-        //     seasons: {
-        //       "1": [Array of episodes for season 1],
-        //     },
-        //   },
-        // ];
-
         setFavouriteEpisodes(groupedEpisodes);
       } catch (err) {
         console.error("Failed to fetch favourite episodes:", err);
@@ -122,7 +101,6 @@ function Favourites() {
   const handleSortChange = (episodes, option) => {
     setSortOption(option);
     // Apply sorting logic here based on the selected option
-    console.log(episodes);
     switch (option) {
       case "A-Z":
         return episodes.sort((a, b) => a.title.localeCompare(b.title));
@@ -168,23 +146,29 @@ function Favourites() {
           <h3>Loading favourites...</h3>
         ) : favouriteEpisodes.length > 0 ? (
           favouriteEpisodes.map((showObj) => (
-            <>
-              <section id="show">
-                <div id="season">
-                  {/* <FavouritesCard
-                    key={episode.uid}
-                    uid={episode.uid}
-                    title={episode.title}
-                    description={episode.description}
-                    file={episode.file}
-                    episode={episode.episode}
-                    dateAdded={episode.dateAdded}
-                    seasonTitle={episode.seasonTitle}
-                    showTitle={episode.showTitle}
-                  /> */}
-                </div>
-              </section>
-            </>
+            <section id="show" key={showObj.showTitle}>
+              <h3 className="bg-green-800 p-3">{showObj.showTitle}</h3>
+              <div id="season">
+                {Object.entries(showObj.seasons).map(([seasonId, episodes]) => (
+                  <div key={seasonId}>
+                    <h4 className="bg-green-500 p-3">Season {seasonId}</h4>
+                    {episodes.map((episode) => (
+                      <FavouritesCard
+                        key={episode.uid}
+                        uid={episode.uid}
+                        title={episode.title}
+                        description={episode.description}
+                        file={episode.file}
+                        episode={episode.episode}
+                        dateAdded={episode.dateAdded}
+                        seasonTitle={episode.seasonTitle}
+                        showTitle={episode.showTitle}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </section>
           ))
         ) : (
           <h3>No favourite episodes found</h3>

@@ -57,7 +57,7 @@ function Home() {
         return data.sort((a, b) => a.title.localeCompare(b.title));
       case "Z-A":
         return data.sort((a, b) => b.title.localeCompare(a.title));
-      case "Latest Updated":
+      case "Recently updated":
         return data.sort(
           (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
         );

@@ -1,37 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { favourites } from "../utils/localStorage.jsx";
 import starFull from "../images/star-full.png";
 import starEmpty from "../images/star-empty.png";
-import { favourites } from "../utils/localStorage.jsx";
-import PropTypes from "prop-types";
-import { TrackContext } from "../context/TrackContext";
+import { useCurrentTrack } from "../context/CurrentTrackContext";
 
 function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
-  const [isFavourite, setIsFavourite] = useState(false);
-  const EpisodeUid = `${showId}-${seasonId}-${episode}`;
+  const [isFavourite, setIsFavourite] = React.useState(false);
+  const EpisodeUid = `${showId}-${seasonId}-${episode}`; // Unique identifier
+  const { currentTrack, playTrack, togglePlayPause } = useCurrentTrack();
 
   // Sync initial state with local storage
-  useEffect(() => {
+  React.useEffect(() => {
     setIsFavourite(favourites.checkFavourites(EpisodeUid));
   }, [EpisodeUid]);
 
   const handleToggleFavourite = () => {
     favourites.toggleFavouriteLS(EpisodeUid);
-    setIsFavourite(!isFavourite); // Update local UI state
+    setIsFavourite(!isFavourite);
   };
 
-  const { updateTrack } = React.useContext(TrackContext);
-
-  const handlePlay = () => {
-    const trackData = {
-      showId,
-      seasonId,
-      episode,
-      title,
-      file,
-      isFavourite: false,
-    };
-    updateTrack(trackData);
-  };
+  const isCurrentTrack = currentTrack.EpisodeUid === EpisodeUid;
 
   return (
     <>
@@ -49,10 +38,15 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
       </div>
       <div className="bg-lime-900 rounded-lg p-4">
         <p className="mb-2">{description}</p>
-        <audio controls onPlay={handlePlay}>
-          <source src={file} type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
+        <button
+          onClick={() =>
+            isCurrentTrack
+              ? togglePlayPause()
+              : playTrack({ title, file, EpisodeUid })
+          }
+        >
+          {isCurrentTrack && currentTrack.isPlaying ? "Pause" : "Play"}
+        </button>
       </div>
     </>
   );

@@ -2,7 +2,7 @@
 
 [DJS11] Starter Instructions for the Final Portfolio Piece Submission 🚀
 
-<!-- omit in toc -->
+[Presentation Link here](https://www.canva.com/design/DAGNV9boNXU/nL4w4hLwY3Zu2mrTfeLD9w/edit?utm_content=DAGNV9boNXU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 **Table of Contents**
 

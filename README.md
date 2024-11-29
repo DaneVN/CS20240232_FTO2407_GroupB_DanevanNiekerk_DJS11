@@ -7,8 +7,10 @@
 **Table of Contents**
 
 - [Contribution](#-my-contribution)
-  - [Introduction](#-introduction)
+  - [🔊Introduction](#-introduction)
   - [⚙️ Setup](#-setup)
+  - [📽️Usage Examples](#usage-example)
+  - [📬Contact Me](#contact-me)
 - [Codespace](#-codespace)
   - [🤖 Technology](#-technology)
   - [📦Data](#data)
@@ -21,7 +23,7 @@
 
 **All my contributions to complete this README**
 
-## Introduction
+## 🔊Introduction
 
 The Podcast app is an application that displays different (placeholder)podcast and allows user interactions like sorting, filtering, audio playback and favouriting/saving an episode for later revisiting.
 
@@ -42,6 +44,18 @@ The Podcast app is an application that displays different (placeholder)podcast a
    - `npm run dev`
 
 _If you encounter issues with dependencies, delete the node_modules folder and package-lock.json, then reinstall by running `npm install` again_
+
+## 📽️Usage Example
+
+! [GIF1](./src/assets/GIFs/GIF-1.gif)
+! [GIF2](./src/assets/GIFs/GIF-2.gif)
+! [GIF3](./src/assets/GIFs/GIF-3.gif)
+! [GIF4](./src/assets/GIFs/GIF-4.gif)
+
+## 📬Contact Me:
+
+! [GitHub](https://github.com/DaneVN/DaneVN)
+! [Email](mailto:Dane.vN23@gmail.com)
 
 # CodeSpace
 

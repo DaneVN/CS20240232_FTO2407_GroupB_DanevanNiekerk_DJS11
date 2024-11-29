@@ -73,6 +73,12 @@ function Home() {
     if (genres.length > 0) fetchAllGenres();
   }, [genres]);
 
+  React.useEffect(() => {
+    if (Object.keys(genreNames).length > 0) {
+      setFilterOption("default"); // Trigger a state change if needed.
+    }
+  }, [genreNames]);
+
   const handleSortChange = (data, option) => {
     switch (option) {
       case "A-Z":
@@ -93,7 +99,7 @@ function Home() {
   };
 
   const handleFilterChange = (shows, option) => {
-    setFilterOption(Number(option));
+    setFilterOption(option);
 
     // If no option or default is selected, return all shows
     if (!option || option === "default") return shows;
@@ -158,7 +164,7 @@ function Home() {
             <option value="default">
               {genres.length === 0 ? "Loading genres..." : "Filter Genre"}
             </option>
-            {genres.length > 0 ? (
+            {genres.length > 0 && genreNames ? (
               genres.map((genre) => (
                 <option key={`genre-${genre}`} value={genre}>
                   {genreNames[genre] || `Genre ${genre}`}

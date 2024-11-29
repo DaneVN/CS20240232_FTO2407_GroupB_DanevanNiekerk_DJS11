@@ -48,13 +48,17 @@ _If you encounter issues with dependencies, delete the node_modules folder and p
 ## 📽️Usage Example
 
 ![GIF1](./src/assets/GIFs/GIF-1.gif)
+
 ![GIF2](./src/assets/GIFs/GIF-2.gif)
+
 ![GIF3](./src/assets/GIFs/GIF-3.gif)
+
 ![GIF4](./src/assets/GIFs/GIF-4.gif)
 
 ## 📬Contact Me:
 
 ![GitHub](https://github.com/DaneVN/DaneVN)
+
 ![Email](mailto:Dane.vN23@gmail.com)
 
 # CodeSpace

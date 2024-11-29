@@ -140,8 +140,12 @@ function Favourites() {
           <option value="default">Sort by</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
-          <option value="Latest Updated">Latest Updated</option>
-          <option value="Oldest Updated">Oldest Updated</option>
+          <option value="Latest Updated" disabled>
+            Latest Updated
+          </option>
+          <option value="Oldest Updated" disabled>
+            Oldest Updated
+          </option>
         </select>
       </div>
       <div className="bg-lime-950 p-3">

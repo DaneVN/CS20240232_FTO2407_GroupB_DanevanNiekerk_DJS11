@@ -130,8 +130,12 @@ function Home() {
             <option value="default">Sort by</option>
             <option value="A-Z">A-Z</option>
             <option value="Z-A">Z-A</option>
-            <option value="Latest Added">Latest Added</option>
-            <option value="Oldest Added">Oldest Added</option>
+            <option value="Latest Added" disabled>
+              Latest Added
+            </option>
+            <option value="Oldest Added" disabled>
+              Oldest Added
+            </option>
           </select>
         </div>
         <div id="genre-filter">

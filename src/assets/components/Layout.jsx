@@ -7,9 +7,9 @@ import Footer from "./Footer";
 
 function Layout() {
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex flex-col">
       <Header />
-      <main className="m-5 mt-20">
+      <main className="mt-20">
         <Outlet />
       </main>
       <ProgressBar />

@@ -19,7 +19,7 @@ function ProgressBar() {
           {currentTrack.title || "No track playing"}
         </p>
       </div>
-      <div id="controls" className="col-span-2 flex justify-center gap-4">
+      <div id="controls" className="col-span-2 flex justify-end gap-4">
         <button onClick={() => handlePlayPause(currentTrack)}>
           <img
             className="w-8"

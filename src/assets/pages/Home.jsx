@@ -101,9 +101,20 @@ function Home() {
   };
 
   return (
-    <>
+    <section className="w-[90%] justify-self-center">
       <h2>You were listening to:</h2>
-      <LastListened />
+      <div className="flex gap-4 justify-start flex-nowrap overflow-x-scroll scrollbar">
+        {/* //proof of concept */}
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+        <LastListened />
+      </div>
       <br />
       <div className="m-3 flex justify-evenly">
         <div id="sorting">
@@ -177,7 +188,7 @@ function Home() {
       ) : (
         <h3>Loading Podcasts...</h3>
       )}
-    </>
+    </section>
   );
 }
 

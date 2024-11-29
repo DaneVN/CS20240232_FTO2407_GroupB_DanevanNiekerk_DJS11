@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import fetchGenreNames from "../utils/genresTest";
 
 function PreviewCard({
   showId,
@@ -13,20 +14,8 @@ function PreviewCard({
 }) {
   const [isExpanded, setIsExpanded] = React.useState(false); // Toggle expanded state
   const [isOverflowing, setIsOverflowing] = React.useState(false); // Check if text overflows
+  const [genresStrings, setGenresStrings] = React.useState([]); // State to store fetched genres
   const descriptionRef = React.useRef(null); // Reference to the description element
-
-  //NO HARDCODED STUFF!!!
-  const genresStrings = [
-    [1, "Personal Growth"],
-    [2, "Investigative Journalism"],
-    [3, "History"],
-    [4, "Comedy"],
-    [5, "Entertainment"],
-    [6, "Business"],
-    [7, "Fiction"],
-    [8, "News"],
-    [9, "Kids and Family"],
-  ];
 
   const dateString = new Date(updated.slice(0, 10));
   const updatedParsed = dateString.toLocaleString("en-GB", {
@@ -34,6 +23,33 @@ function PreviewCard({
     month: "short",
     year: "numeric",
   });
+
+  // Fetch genres on component mount
+  React.useEffect(() => {
+    const fetchGenres = async () => {
+      const genreIds = Array.from({ length: 9 }, (_, i) => i + 1); // IDs [1, 2, ..., 9]
+      const results = [];
+
+      for (const id of genreIds) {
+        try {
+          const genre = await fetchGenreNames(id);
+          // Fetch one at a time Because Promise.all bundeling was causing a
+          //net::ERR_INSUFFICIENT_RESOURCES error using sequential instead,
+          //until I can working on refactoring.
+          results.push(genre);
+        } catch (error) {
+          console.error(`Error fetching genre with ID ${id}:`, error);
+          results.push([id, null]); // Push null if fetch fails
+        }
+      }
+
+      setGenresStrings(results);
+    };
+
+    fetchGenres().catch((error) =>
+      console.error("Error fetching genres sequentially:", error)
+    );
+  }, []);
 
   // Check for overflow after the component renders
   React.useEffect(() => {
@@ -89,15 +105,18 @@ function PreviewCard({
             <div id="genre-list">
               <ul className="list-none flex gap-2 justify-center flex-wrap">
                 {Array.isArray(genres) &&
-                  genres.map((genreNum) => (
-                    <li
-                      id="genre"
-                      key={genreNum}
-                      className="bg-slate-800 rounded-3xl px-3 py-1"
-                    >
-                      {genresStrings[genreNum - 1][1]}
-                    </li>
-                  ))}
+                  genres.map((genreNum) => {
+                    const genre = genresStrings.find(([id]) => id === genreNum);
+                    return (
+                      <li
+                        id="genre"
+                        key={genreNum}
+                        className="bg-slate-800 rounded-3xl px-3 py-1"
+                      >
+                        {genre ? genre[1] : "Unknown Genre"}
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </div>
@@ -109,7 +128,6 @@ function PreviewCard({
   );
 }
 
-//Fixing ESlint bug on props destructuring: 'description/genre/etc' is missing in props validation
 // Define prop types for validation
 PreviewCard.propTypes = {
   showId: PropTypes.string,

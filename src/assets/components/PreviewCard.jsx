@@ -58,7 +58,7 @@ function PreviewCard({
               />
             </div>
           </Link>
-          <div className="col-span-2 flex flex-col items-center justify-evenly">
+          <div className="lg:col-span-2 flex flex-col items-center justify-evenly">
             <Link to={`show/${showId}`}>
               <h2 className="mb-4">{title}</h2>
             </Link>
@@ -67,7 +67,7 @@ function PreviewCard({
                 ref={descriptionRef}
                 className={`transition-all ${
                   isExpanded ? "line-clamp-none" : "line-clamp-3"
-                }`}
+                } w-full`}
               >
                 {description}
               </p>
@@ -75,7 +75,7 @@ function PreviewCard({
               {isOverflowing && (
                 <button
                   onClick={() => setIsExpanded((prev) => !prev)}
-                  className="text-blue-500 underline mt-2"
+                  className=" text-green-950 font-extrabold italic underline mt-2"
                 >
                   {isExpanded ? "Show Less" : "Show More"}
                 </button>

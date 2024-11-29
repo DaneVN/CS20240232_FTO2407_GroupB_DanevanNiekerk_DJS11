@@ -31,11 +31,14 @@ function EpisodeCard({ showId, seasonId, episode, title, description, file }) {
 
   return (
     <>
-      <div className="mb-4 flex justify-between sm:justify-start sm:gap-4">
+      <div className="my-4 flex justify-between sm:justify-start sm:gap-4">
         <h2>
           Episode {episode}: {title}
         </h2>
-        <button onClick={handleToggleFavourite}>
+        <button
+          onClick={handleToggleFavourite}
+          className="bg-green-600 rounded-md p-0.5"
+        >
           <img
             className="w-6 sm:h-6"
             src={isFavourite ? starFull : starEmpty}

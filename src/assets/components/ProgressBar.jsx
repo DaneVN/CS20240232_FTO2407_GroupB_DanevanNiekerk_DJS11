@@ -13,7 +13,7 @@ function ProgressBar() {
   }
 
   return (
-    <section className="fixed bottom-0 px-8 bg-slate-700 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">
+    <section className="fixed bottom-0 px-8 bg-green-900 h-16 w-full items-center grid grid-cols-3 grid-rows-1 overflow-hidden">
       <div className="items-center max-w-[90%] overflow-hidden sm:flex sm:gap-3">
         <p className="truncate whitespace-nowrap text-ellipsis">
           {currentTrack.title || "No track playing"}

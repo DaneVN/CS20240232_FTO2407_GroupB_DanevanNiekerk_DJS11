@@ -43,10 +43,14 @@ function Season() {
       {!loading ? (
         <>
           <div className="relative">
-            <h3 className="absolute bottom-2 left-4 bg-green-500 px-2 my-4 rounded-lg">
+            <h3 className="absolute top-0 left-[25%] bg-green-500 px-2 my-4 rounded-lg">
               Season {seasonId}
             </h3>
-            <img src={season.image} alt="Season cover" className="w-full" />
+            <img
+              src={season.image}
+              alt="Season cover"
+              className="w-[70%] mx-auto mt-4 rounded-md"
+            />
           </div>
           <section id="episode-list" className="bg-lime-950 p-3 mt-10">
             {season.episodes.map((episode) => (

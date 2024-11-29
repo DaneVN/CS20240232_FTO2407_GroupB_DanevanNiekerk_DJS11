@@ -50,7 +50,7 @@ function FavouritesCard({
           })}
         </p>
         <p className="mb-2">{description}</p>
-        <audio controls>
+        <audio controls className="w-full">
           <source src={file} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>

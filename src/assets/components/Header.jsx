@@ -7,7 +7,7 @@ import star from "../images/star-full.png";
 function Header() {
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-slate-800 flex justify-between pr-6 py-4">
+      <nav className="fixed top-0 z-50 w-full bg-green-900 flex justify-between pr-6 py-4">
         <Link className="flex items-center gap-2" to="/">
           <img className="w-12" src={pocastImg} alt="Home" />
           <h2 className="hidden sm:contents">Podcast App</h2>

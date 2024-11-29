@@ -100,23 +100,30 @@ function Home() {
     return [...shows].filter((show) => show.genres.includes(option));
   };
 
+  const handleLastListenedClick = () =>
+    window.alert(
+      "COMING SOON: A way to view your track history! This is a proof of CSS concept."
+    );
+
   return (
-    <section className="w-[90%] justify-self-center">
-      <h2>You were listening to:</h2>
-      <div className="flex gap-4 justify-start flex-nowrap overflow-x-scroll scrollbar">
-        {/* //proof of concept */}
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-        <LastListened />
-      </div>
+    <section className="w-full justify-self-center">
+      <section>
+        <h2>You were listening to:</h2>
+        <div
+          className="w-full flex gap-4 justify-start flex-nowrap overflow-x-scroll scrollbar"
+          onClick={handleLastListenedClick}
+        >
+          {/* //proof of concept - will iterate over the trackHistory key from local storage when implemented*/}
+          <LastListened />
+          <LastListened />
+          <LastListened />
+          <LastListened />
+          <LastListened />
+          <LastListened />
+        </div>
+      </section>
       <br />
-      <div className="m-3 flex justify-evenly">
+      <div className="m-3 flex justify-evenly flex-wrap gap-2">
         <div id="sorting">
           <label htmlFor="sort-options" className="sr-only">
             Sort by:
@@ -183,11 +190,6 @@ function Home() {
               />
             );
           })}
-
-          {/* Add a react-spring animation here later */}
-          {/* <button className="absolute top-1/2 right-0 hover:animate-bounce">
-            <img src={loadMore} alt="arrow to the right" className="w-14" />
-          </button> */}
         </div>
       ) : (
         <h3>Loading Podcasts...</h3>

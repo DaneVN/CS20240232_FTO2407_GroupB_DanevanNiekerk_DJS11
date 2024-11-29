@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <>
-      <section className=" bg-green-300 text-black font-semibold p-5">
+      <section className=" bg-green-400 text-black font-semibold p-5 rounded-md">
         <div
           id="show-details"
           className="flex gap-7 justify-center items-start mb-4"
